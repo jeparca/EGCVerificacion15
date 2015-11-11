@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Artifact identification and properties -->
+
+	<groupId>EGC</groupId>
+	<artifactId>Verificacion</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	
+	<properties>
+	    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+  	</properties>
+
+	<!-- Indexing information -->
+
+	<name>Verificacion</name>
+	<url>http://www.example.com</url>
+	<description>This is a project template</description>
+	
+	<!-- Build commands -->
+
+	<build>
+		<plugins>
+
+			<!-- Java compiler -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<showWarnings>true</showWarnings>
+					<compilerArguments>
+						<Xlint />
+					</compilerArguments>
+				</configuration>
+			</plugin>		
+
+		</plugins>
+	</build>
+
+	<!-- Repositories to download components -->
+
+	<repositories>
+
+		<!-- Spring repository -->
+
+		<repository>
+			<id>springsource</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/release</url>
+		</repository>
+
+		<!-- Apache repository -->
+
+		<repository>
+			<id>apache</id>
+			<url>https://repository.apache.org/content/repositories/snapshots</url>
+		</repository>
+
+		<!-- Default repository -->
+
+		<repository>
+			<id>central</id>
+			<url>http://repo.maven.apache.org/maven2</url>
+		</repository>
+
+	</repositories>
+
+	<dependencies>
+
+
+		<!-- JUnit -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>4.11</version>
+		</dependency>
+					
+		
+	</dependencies>
+
+</project> 
