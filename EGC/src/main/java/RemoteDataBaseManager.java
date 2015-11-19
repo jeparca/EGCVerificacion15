@@ -130,7 +130,7 @@ public class RemoteDataBaseManager {
 			if (method.equals("AES")){
 				url = new URL("http://egc.jeparca.com/AESdefault.php?id="+id);
 			}else{
-				url = new URL("http://egcprueba.esy.es/default.php?id="+id);
+				url = new URL("http://egc.jeparca.com/default.php?id="+id);
 			}
 			
 		}catch (MalformedURLException e){
