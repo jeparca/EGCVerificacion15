@@ -81,7 +81,7 @@ public class RemoteDataBaseManager {
 			
 	        //URL que atenderá la petición HTTP y guardará la clave
 	        // en la base de datos remota
-			url = new URL("http://egcprueba.esy.es/AESdefault2.php");
+			url = new URL("http://egc.jeparca.com/AESdefault2.php");
 			
 	        URLConnection connection = url.openConnection();
 	        connection.setDoOutput(true);
@@ -128,9 +128,9 @@ public class RemoteDataBaseManager {
 		// posteriormente para extraer las claves RSA o la clave AES
 		try{
 			if (method.equals("AES")){
-				url = new URL("http://egcprueba.esy.es/AESdefault.php?id="+id);
+				url = new URL("http://egc.jeparca.com/AESdefault.php?id="+id);
 			}else{
-				url = new URL("http://egcprueba.esy.es/default.php?id="+id);
+				url = new URL("http://egc.jeparca.com/default.php?id="+id);
 			}
 			
 		}catch (MalformedURLException e){
