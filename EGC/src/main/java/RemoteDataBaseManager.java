@@ -81,7 +81,7 @@ public class RemoteDataBaseManager {
 			
 	        //URL que atenderá la petición HTTP y guardará la clave
 	        // en la base de datos remota
-			url = new URL("http://egcprueba.esy.es/AESdefault2.php");
+			url = new URL("http://egc.jeparca.com/AESdefault2.php");
 			
 	        URLConnection connection = url.openConnection();
 	        connection.setDoOutput(true);
