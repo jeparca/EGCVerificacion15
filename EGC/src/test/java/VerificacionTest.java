@@ -5,14 +5,12 @@ import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
+import org.junit.Test;
 
 import main.java.Authority;
 import main.java.AuthorityImpl;
 import main.java.AuthorityImplAES;
-
-
-import org.junit.Test;
 
 public class VerificacionTest {
 	
