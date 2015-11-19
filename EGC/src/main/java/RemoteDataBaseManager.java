@@ -128,7 +128,7 @@ public class RemoteDataBaseManager {
 		// posteriormente para extraer las claves RSA o la clave AES
 		try{
 			if (method.equals("AES")){
-				url = new URL("http://egcprueba.esy.es/AESdefault.php?id="+id);
+				url = new URL("http://egc.jeparca.com/AESdefault.php?id="+id);
 			}else{
 				url = new URL("http://egcprueba.esy.es/default.php?id="+id);
 			}
