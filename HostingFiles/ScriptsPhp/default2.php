@@ -23,10 +23,10 @@ if (isset($_REQUEST['priv'])){
 </html>
 <?
 
-$user="u602876340_egc";
-$pass="egc4db";
+$user="jeparcac_egc";
+$pass="E?FPe#bl9k.?";
 $server="localhost";
-$db="u602876340_egc";
+$db="jeparcac_egc";
 $con=mysqli_connect($server,$user,$pass,$db);
 
 $sql = "INSERT INTO keysvotes (idvotation, publicKey, privateKey) VALUES ('".$idv."', '".$pub."', '".$priv."')";

@@ -14,10 +14,10 @@ if (isset($_REQUEST['id'])){
 
 <?
 
-$user="u602876340_egc";
-$pass="egc4db";
+$user="jeparca_egc";
+$pass="E?FPe#bl9k.?";
 $server="localhost";
-$db="u602876340_egc";
+$db="jeparcac_egc";
 $con=mysql_connect($server,$user,$pass);
 mysql_select_db($db, $con);
 $result = mysql_query("SELECT * FROM keysvotesAES where idvotation ='".$idv."'", $con);
