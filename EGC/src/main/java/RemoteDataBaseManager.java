@@ -8,6 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class RemoteDataBaseManager {
 	
@@ -21,43 +26,21 @@ public class RemoteDataBaseManager {
 	 */
 	public boolean postKeys(String id, String publicKey,String privateKey ){
 		boolean success = false;
+		Connection conn;
+		
 		try {
 			
-			//Codificamos las variables que se enviarán en "UTF-8"
-			id = URLEncoder.encode(id, "UTF-8");
-			publicKey = URLEncoder.encode(publicKey, "UTF-8");
-			privateKey = URLEncoder.encode(privateKey, "UTF-8");
-	        URL url;
-			
-	        //URL que atenderá la petición HTTP y guardará las claves
-	        // en la base de datos remota
-			url = new URL("http://egc.jeparca.com/default2.php");
-			
-	        URLConnection connection = url.openConnection();
-	        connection.setDoOutput(true);
-	
-	        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-	        
-	        //Escribimos los valores en las variables para la petición HTTP
-	        out.write("id=" + id+"&");
-	        out.write("pub=" + publicKey+"&");
-	        out.write("priv=" + privateKey);
-	        out.close();
-	
-	        //Obtenemos la respuesta de la petición
-	        BufferedReader in = new BufferedReader(new InputStreamReader( connection.getInputStream()));
-	        String decodedString;
-	        String fullText="";
-	        while ((decodedString = in.readLine()) != null) {
-	        	fullText+=decodedString;
-	        }
-	        in.close();
-	        //Comprobamos que en la respuesta está contenido el mensaje de éxito
-	        success = fullText.contains("New record created successfully");
-	        
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		conn = DriverManager.getConnection("jdbc:mysql://egc.jeparca.com/jeparcac_egc?" +
+				                                   "user=jeparcac_egc&password=E?FPe#b19k.?");
+	       
+		Statement stmt;
+		ResultSet rs;
+		
+		stmt = conn.createStatement();
+	    success = stmt.execute("INSERT INTO keysvotes VALUES('"+id+"','"+publicKey+"','"+privateKey+"')");
+	    
+	    
+		} catch (SQLException  e) {
 			e.printStackTrace();
 		}
 		
@@ -118,7 +101,7 @@ public class RemoteDataBaseManager {
 	 * @param method Variable que indica si se quieren consultar las claves RSA o la clave AES
 	 * @return Cadena de texto con el resultado de la petición HTTP
 	 */
-	public String readPage(String id, String method){
+	public String readPage(String id){
 		BufferedReader in = null;
 		URL url = null;
 		String linea;
@@ -127,11 +110,8 @@ public class RemoteDataBaseManager {
 		//Hacemos una petición HTTP a una URL cuyo resultado podrá ser analizado
 		// posteriormente para extraer las claves RSA o la clave AES
 		try{
-			if (method.equals("AES")){
-				url = new URL("http://egc.jeparca.com/AESdefault.php?id="+id);
-			}else{
-				url = new URL("http://egc.jeparca.com/default.php?id="+id);
-			}
+			
+			url = new URL("http://egc.jeparca.com/AESdefault.php?id="+id);
 			
 		}catch (MalformedURLException e){
 			
@@ -165,7 +145,7 @@ public class RemoteDataBaseManager {
 	 * @return La clave de cifrado AES asociada a una votación
 	 */
 	public String getSecretKey(String id){
-		String fullPage = readPage(id,"AES");
+		String fullPage = readPage(id);
 		String res = "";
 		
 		//En el bucle se extrae el valor de la clave analizando el resultado de llamar a la
@@ -184,7 +164,7 @@ public class RemoteDataBaseManager {
 	 * @return La clave pública asociada a una votación
 	 */
 	public String getPublicKey(String id){
-		String fullPage = readPage(id,"RSA");
+		String fullPage = readPage(id);
 		String res = "";
 		
 		//En el bucle se extrae el valor de la clave analizando el resultado de llamar a la
@@ -203,7 +183,7 @@ public class RemoteDataBaseManager {
 	 * @return La clave privada asociada a una votación
 	 */
 	public String getPrivateKey(String id){
-		String fullPage = readPage(id,"RSA");
+		String fullPage = readPage(id);
 		String res = "";
 		
 		//En el bucle se extrae el valor de la clave analizando el resultado de llamar a la
