@@ -19,13 +19,13 @@ along with Elliptic_SDK.  If not, see <http://www.gnu.org/licenses/>.
 
 package cifrado;
 
-import java.math.BigInteger;
-
 public class main {
 	public static void main(String[] args) {
 		System.out.println("Test begins");
 
 		testElGamal();
+		
+		testPostKeys("9999999998");
 	}
 
 	private static void testElGamal() {
@@ -35,5 +35,15 @@ public class main {
 		String encoded = cryptoEngine.encodeString("test test test test test test t", cryptoEngine.getKeyPair().getPublicKey());
 
 		System.out.println(cryptoEngine.decodeString(encoded));
+	}
+	
+	private static void testPostKeys(String id){
+		
+		Authority auth;
+		
+		auth = new AuthorityImpl();
+		
+		System.out.println(auth.postKey(id));
+		
 	}
 }
