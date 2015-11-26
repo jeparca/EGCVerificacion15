@@ -48,8 +48,9 @@ public class AuthorityImpl implements Authority{
 	}
 
 	public String getPublicKey(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
+		//Llamamos a la función que conecta con la base de datos remota y obtiene la clave pública.
+		return rdbm.getPublicKey(id);
 	}
 
 	public String getPrivateKey(String id) {
