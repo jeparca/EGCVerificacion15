@@ -33,16 +33,18 @@ public class CryptoEngine {
 	private static final String MESSAGE_SEPARATOR = "////";
 	private static final String CHAR_MESSAGE_SEPARATOR = "/";
 
-	public CryptoEngine() {
-		BigInteger P = new BigInteger("8884933102832021670310856601112383279507496491807071433260928721853918699951");
+	public CryptoEngine(String id) {
+		BigInteger seed1 = (new BigInteger(id)).add(new BigInteger("1"));
+		BigInteger seed2 = (new BigInteger(id)).add(new BigInteger("-1"));
+		BigInteger P = new BigInteger(253, new Random(new BigInteger(id).intValue()));
 		BigInteger R = new BigInteger("8094458595770206542003150089514239385761983350496862878239630488323200271273");
 		BigInteger N = new BigInteger("8884933102832021670310856601112383279454437918059397120004264665392731659049");
 		BigInteger A4 = new BigInteger("2481513316835306518496091950488867366805208929993787063131352719741796616329");
 		BigInteger A6 = new BigInteger("4387305958586347890529260320831286139799795892409507048422786783411496715073");
 		BigInteger R4 = new BigInteger("5473953786136330929505372885864126123958065998198197694258492204115618878079");
 		BigInteger R6 = new BigInteger("5831273952509092555776116225688691072512584265972424782073602066621365105518");
-		BigInteger GX = new BigInteger("7638166354848741333090176068286311479365713946232310129943505521094105356372");
-		BigInteger GY = new BigInteger("762687367051975977761089912701686274060655281117983501949286086861823169994");
+		BigInteger GX = new BigInteger(P.bitLength(), new Random(seed1.intValue()));
+		BigInteger GY = new BigInteger(P.bitLength(), new Random(seed2.intValue()));
 		curve = new WeierStrassCurve(P, R, N, A4, A6, R4, R6, GX, GY);
 		generateur = new PointGMP(curve.getGx(), curve.getGy(), curve);
 	}
