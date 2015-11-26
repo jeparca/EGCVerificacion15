@@ -73,4 +73,37 @@ public class AuthorityImpl implements Authority{
 		return null;
 	}
 
+	@Override
+	public String[] cutVote(String votoEnClaro) {
+		int arrayLength = votoEnClaro.length() / 31; 
+		String[] result = new String[arrayLength + 1];
+		String corte = "";
+		
+		if(votoEnClaro.length() > 31){
+			//corto
+			for(int i = 0; i < arrayLength + 1; i++){
+				int from = i * 31;
+				int to = from + 32;
+				if(i == 0){
+					corte = votoEnClaro.substring(from,to);
+					result[i] = corte;
+				}else{
+					
+					//si el ultimo trozo es menor a 31				
+					if(votoEnClaro.length() - from < 31){
+						corte = votoEnClaro.substring(from + i, votoEnClaro.length());
+					}else{
+						corte = votoEnClaro.substring(from + i, from + i + 32);
+					}
+					result[i] = corte;
+				}
+				
+			}
+		}else{
+			result[0] = votoEnClaro;
+		}
+		
+		return result;
+	}
+
 }
