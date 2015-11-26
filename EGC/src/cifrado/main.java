@@ -29,7 +29,7 @@ public class main {
 	}
 
 	private static void testElGamal() {
-		CryptoEngine cryptoEngine = new CryptoEngine();
+		CryptoEngine cryptoEngine = new CryptoEngine("15");
 		cryptoEngine.generateKeyPair();
 
 		String encoded = cryptoEngine.encodeString("test test test", cryptoEngine.getKeyPair().getPublicKey());
