@@ -25,9 +25,11 @@ public class main {
 
 		testElGamal();
 		
-		testPostKeys("9999999997");
+		testPostKeys("999999995");
 		
-		testGetPublicKey("9999999998");
+		testGetPublicKey("999999995");
+		
+		testGetPrivateKey("999999995");
 	}
 
 	private static void testElGamal() {
@@ -56,6 +58,16 @@ public class main {
 		auth = new AuthorityImpl();
 		
 		System.out.println(auth.getPublicKey(id));
+		
+	}
+	
+	private static void testGetPrivateKey(String id){
+		
+		Authority auth;
+		
+		auth = new AuthorityImpl();
+		
+		System.out.println(auth.getPrivateKey(id));
 		
 	}
 }
