@@ -54,8 +54,9 @@ public class AuthorityImpl implements Authority{
 	}
 
 	public String getPrivateKey(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
+		//Llamamos a la función que conecta con la base de datos remota y obtiene la clave privada.
+		return rdbm.getSecretKey(id);
 	}
 
 	public boolean checkVote(byte[] votoCifrado, String id) {
