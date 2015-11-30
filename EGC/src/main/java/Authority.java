@@ -1,4 +1,4 @@
-package cifrado;
+package main.java;
 
 import javax.crypto.BadPaddingException;
 

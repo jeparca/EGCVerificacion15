@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Elliptic_SDK.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cifrado;
+package main.java;
 
 import java.math.BigInteger;
 

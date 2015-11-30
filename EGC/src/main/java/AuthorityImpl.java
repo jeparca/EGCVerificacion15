@@ -1,10 +1,8 @@
-package cifrado;
+package main.java;
 
 import java.math.BigInteger;
 import javax.crypto.BadPaddingException;
 import javax.xml.bind.DatatypeConverter;
-
-import main.java.RemoteDataBaseManager;
 
 public class AuthorityImpl implements Authority{
 	

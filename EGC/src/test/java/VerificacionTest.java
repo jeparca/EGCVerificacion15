@@ -8,8 +8,8 @@ import javax.crypto.BadPaddingException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cifrado.Authority;
-import cifrado.AuthorityImpl;
+import main.java.Authority;
+import main.java.AuthorityImpl;
 
 public class VerificacionTest {
 	
