@@ -8,15 +8,12 @@ import javax.crypto.BadPaddingException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cifrado.AuthorityImpl;
 import cifrado.Authority;
-
-import main.java.AuthorityImplAES;
+import cifrado.AuthorityImpl;
 
 public class VerificacionTest {
 	
 	Authority au = new AuthorityImpl();
-	AuthorityImplAES auAes = new AuthorityImplAES();
 	
 	//Este primer test consiste en recuperar una clave publica de una votacion existente
 	@Test
@@ -85,87 +82,6 @@ public class VerificacionTest {
 		
 	}
 	
-	//Este test detecta el error que se describe en el Issue#6 en el que se 
-	// solicitaba eliminar el espacio en blanco de la primera posición 
-	// obtenido al solicitar una clave AES de la base de datos.
-	@Test
-	public void test7() {
-		String secretKey = auAes.getSecretKey("1000");
-		Assert.assertNotSame(" ", secretKey.charAt(0));
-		
-	}
-	
-	//Este test consulta la clave secreta AES de la base de datos en la nube
-	@Test
-	public void test8() {
-		String secretKey = auAes.getSecretKey(String.valueOf(1000));
-		Assert.assertEquals("bmV2q1MarBMfNNvVq+AQZ1MhjRwaBHpVaMzAwBWMlB0=", secretKey);
-
-	}
-
-	//En este test se cifra una cadena de texto mediante el algoritmo AES
-	// y se comprueba que no haya sido modificada
-	@Test
-	public void test9() {
-		String texto = "Texto a cifrar";
-		byte[] cifrado = auAes.encrypt("1000", texto, true);
-		
-		Assert.assertTrue(auAes.checkVote(cifrado, "1000"));
-		
-	}
-	
-	//En este test se cifra una cadena de texto mediante el algoritmo AES 
-	// y se modifica para que la comprobacion muestre el error
-	@Test
-	public void test10() {
-		String texto = "Texto a cifrar";
-		byte[] cifrado = auAes.encrypt("1000", texto,true);
-		cifrado[1]=1;
-		Assert.assertFalse(auAes.checkVote(cifrado, "1000"));
-		
-	}
-	
-	//En este test se crea una clave AES para una nueva votacion aleatoria
-	@Test
-	public void test11() {
-		Random r = new Random();
-		String id = String.valueOf(r.nextInt(1000000000)+ String.valueOf(r.nextInt(1000000000)));
-		
-		String secretKey = auAes.getSecretKey(id);
-		
-		while (!"".equals(secretKey)){
-			
-			id = String.valueOf(r.nextInt(1000000000)+ String.valueOf(r.nextInt(1000000000)));
-		}
-		
-		Assert.assertTrue(auAes.postKey(id));
-		
-	}
-	//En este test se cifra y se descifra una cadena con formato voto mediante el algoritmo
-	// AES sin añadir al final el hash
-	@Test
-	public void test12() {
-		String texto = "{\"age\": \"24\",\"answers\":[{\"question\":\"Pregunta 1\",\"answer_question\":\"SI\"}],\"id\": 1,\"autonomous_community\":\"Madrid\",\"genere\": \"Femenino\",\"id_poll\": 32778";
-		byte[] cifrado = auAes.encrypt("1000", texto,false);
-		String descifrado=null;
-		descifrado = auAes.decrypt("1000", cifrado,false);
-		
-		Assert.assertEquals(texto, descifrado);
-		
-	}
-	
-	//En este test se cifra y se descifra una cadena con formato voto mediante el algoritmo
-	// AES añadiendo al final el hash
-	@Test
-	public void test13() {
-		String texto = "{\"age\": \"24\",\"answers\":[{\"question\":\"Pregunta 1\",\"answer_question\":\"SI\"}],\"id\": 1,\"autonomous_community\":\"Madrid\",\"genere\": \"Femenino\",\"id_poll\": 32778";
-		byte[] cifrado = auAes.encrypt("1000", texto,true);
-		String descifrado=null;
-		descifrado = auAes.decrypt("1000", cifrado,true);
-		
-		Assert.assertEquals(texto, descifrado);
-		
-	}
 	
 	
 	@Test
