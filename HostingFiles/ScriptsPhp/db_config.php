@@ -4,10 +4,17 @@ header('Content-type: text/html; charset=utf-8');
 /***
 *** FUNCIÓN DE CONEXIÓN CON LA BASE DE DATOS
 ***
-***
-***
-***
-***
+*** Esta función conecta con la base de datos donde se almacenan
+*** las claves que se crean durante la creación de la votación,
+*** de modo que se puede conectar tanto para extraer como para
+*** almacenar la información en la base de datos.
+*** Esta función incorpora los siguientes parámetros internos
+*** para hacer la conexión a la base de datos:
+*** $user: usuario de conexión a la base de datos
+*** $pass: contraseña de conexión a la base de datos
+*** $server: servidor donde se encuentra alojada la base de datos
+*** $port: puerto donde escucha el servidor de base de datos
+*** $db_name: nombre de la base de datos
 ***/
 function getConnector() {
 
