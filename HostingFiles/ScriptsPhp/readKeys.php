@@ -10,7 +10,7 @@ if (isset($_REQUEST['id'])){
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-   <h3>Test lectura base de datos</h3> 
+   <h3>Database reading test</h3> 
 </html>
 <?php
 
@@ -24,7 +24,7 @@ if (isset($_REQUEST['id'])){
 	}
 
 }else{
-	echo "Votation id is mandatory. Please, check the URL format: http://egc.jeparca.com/default.php?id=XXXXXXXXXX";
+	echo "Votation id is mandatory. Please, check the URL format: http://egc.jeparca.com/readKeys.php?id=XXXXXXXXXX";
 }
 
 ?>

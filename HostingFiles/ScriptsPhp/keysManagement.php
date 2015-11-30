@@ -19,7 +19,7 @@ function getBothKeys($idVotation){
 	}
 }
 
-function writeKeys($idVotation){
+function writeKeys($idVotation, $publicKey, $privateKey){
 		
 	try{
 
