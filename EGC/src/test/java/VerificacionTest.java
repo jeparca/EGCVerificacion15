@@ -8,8 +8,9 @@ import javax.crypto.BadPaddingException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import main.java.Authority;
-import main.java.AuthorityImpl;
+import cifrado.AuthorityImpl;
+import cifrado.Authority;
+
 import main.java.AuthorityImplAES;
 
 public class VerificacionTest {
@@ -164,6 +165,18 @@ public class VerificacionTest {
 		
 		Assert.assertEquals(texto, descifrado);
 		
+	}
+	
+	
+	@Test
+	public void testCortaString(){
+		String texto = "Muchas veces nos es necesario tratar cadenas de texto, pero la mayoría de esas veces no utilizamos";
+		String[] res = au.cutVote(texto);
+		Assert.assertTrue(res.length == 4);
+		
+		for (String s:res){
+			System.out.println(s);
+		}
 	}
 
 	
