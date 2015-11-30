@@ -15,7 +15,7 @@ if (isset($_REQUEST['id'])){
 <?
 
 $user="jeparcac_egc";
-$pass="E?FPe#bl9k.?";
+$pass="kqPTE8dLz3GVtks";
 $server="localhost";
 $db="jeparcac_egc";
 $con=mysql_connect($server,$user,$pass);

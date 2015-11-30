@@ -24,7 +24,7 @@ if (isset($_REQUEST['priv'])){
 <?
 
 $user="jeparcac_egc";
-$pass="E?FPe#bl9k.?";
+$pass="kqPTE8dLz3GVtks";
 $server="localhost";
 $db="jeparcac_egc";
 $con=mysqli_connect($server,$user,$pass,$db);
