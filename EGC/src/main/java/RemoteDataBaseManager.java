@@ -188,17 +188,35 @@ public class RemoteDataBaseManager {
 	 * @return La clave pública asociada a una votación
 	 */
 	public String getPublicKey(String id){
-		String fullPage = readPage(id);
 		String res = "";
-		
-		//En el bucle se extrae el valor de la clave analizando el resultado de llamar a la
-		// función readPage.
-		for(int j = fullPage.indexOf("Publickey: ") + 10; fullPage.charAt(j)!='<' && j< fullPage.length() ;j++){
-			
-			res += fullPage.charAt(j);
-		}
-		
-		return res;
+		Connection conn = null;
+		String url = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
+		String USER = "jeparcac_egc";
+	    String PASS = "kqPTE8dLz3GVtks";
+	    
+	    try {			
+		  conn = DriverManager.getConnection(url, USER, PASS);
+	      Statement select = conn.createStatement();
+	      ResultSet result = select
+	          .executeQuery("SELECT publicKey FROM keysvotes where idvotation="+id);
+	      
+	      result.next();
+	      res = result.getString(1);
+	      System.out.println(res);
+	      
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    } finally {
+	      if (conn != null) {
+	        try {
+	          conn.close();
+	        } catch (Exception e) {
+	          e.printStackTrace();
+	        }
+	      }
+	    }
+	    
+	    return res;
 	}
 	
 	/**
