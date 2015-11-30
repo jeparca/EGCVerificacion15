@@ -1,7 +1,23 @@
 <?php
 
+/***
+*** Incluimos el archivo de conexión a la base de datos.
+***/
 include_once('db_config.php');
 
+/***
+*** FUNCIÓN DE EXTRACCIÓN DE CLAVES DE LA BASE DE DATOS
+***
+*** Esta función conecta con la base de datos donde se almacenan
+*** las claves que se crean durante la creación de la votación,
+*** de modo que se puede obtener la clave pública y privada.
+*** En un principio, esta función está diseñada como función de
+*** testing para poder recuperar ambas claves, pero será modificada
+*** debido al grave problema de seguridad que ello supone.
+*** Esta función incorpora los siguientes parámetros externos
+*** para obtener las claves:
+*** $idVotation: es el id de la votación para la cual se quieren conocer las claves
+***/
 function getBothKeys($idVotation){
 		
 	try{
@@ -19,6 +35,21 @@ function getBothKeys($idVotation){
 	}
 }
 
+/***
+*** FUNCIÓN DE ESCRITURA DE CLAVES EN LA BASE DE DATOS
+***
+*** Esta función conecta con la base de datos donde se almacenan
+*** las claves que se crean durante la creación de la votación,
+*** de modo que se pueden escribir nuevas claves pasadas por parámetros.
+*** En un principio, esta función está diseñada como función de
+*** testing para poder escribir ambas claves, pero será modificada
+*** debido al grave problema de seguridad que ello supone.
+*** Esta función incorpora los siguientes parámetros externos
+*** para obtener las claves:
+*** $idVotation: es el id de la votación para la cual se quieren conocer las claves
+*** $publicKey: clave pública a incorporar para el id proporcionado
+*** $privateKey: clave privada a incorporar para el id proporcionado
+***/
 function writeKeys($idVotation, $publicKey, $privateKey){
 		
 	try{
