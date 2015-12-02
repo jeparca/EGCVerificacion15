@@ -92,8 +92,7 @@ public class AuthorityImpl implements Authority{
 		for (String s: cutText){
 			String encriptAux = "";
 			
-			encriptAux = ce.encodeString(s, publicKey);
-			System.out.println(encriptAux);
+			encriptAux = ce.encodeString(s, publicKey);			
 			int from = encriptAux.indexOf('/');
 			int to = encriptAux.length();
 			encriptAux = encriptAux.substring(from + 4,to);		
@@ -172,6 +171,10 @@ public class AuthorityImpl implements Authority{
 	private String formatToDecode(String cipherText, String idVote){
 		String result;
 		result = "";
+		String publicKeys;
+				
+		publicKeys = getPublicKey(idVote);
+		result = publicKeys+"////"+cipherText;
 		
 		return result;
 	}
