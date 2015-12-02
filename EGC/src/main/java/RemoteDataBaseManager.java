@@ -307,4 +307,47 @@ public class RemoteDataBaseManager {
 		return success;
 	}
 
+	public Integer getAccessToken(Integer votationId){
+		Integer result = -1;
+		Connection conn = null;
+		Statement stmt = null;
+	    String USER = "jeparcac_egc";
+	    String PASS = "kqPTE8dLz3GVtks";  
+	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
+		
+		try {	
+		
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		
+		stmt = conn.createStatement();
+		
+		String sql = "SELECT * FROM token WHERE idvotation = ?";
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, votationId);
+        ResultSet r = preparedStatement.executeQuery();
+        
+        result = r.getInt("accesstoken");
+
+		} catch(SQLException se) {
+	        se.printStackTrace();
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if(stmt != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	        }
+	        try {
+	            if(conn != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	            se.printStackTrace();
+	        }
+	    }
+		
+		return result;
+	}
+	
 }
