@@ -2,11 +2,9 @@ package main.java;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
-import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.xml.bind.DatatypeConverter;
 
 public class AuthorityImpl implements Authority{
@@ -79,8 +77,8 @@ public class AuthorityImpl implements Authority{
 		
 		
 		String[] cutText = cutVote(textToEncypt);
-		
-		//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
+		//TODO provisional. tengo que obtener las claves de la bd
+		//TODO obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
 		//en la bd sse guarda en base64
 		publicKeyBD = getPublicKey(idVote);
 		byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
@@ -98,8 +96,7 @@ public class AuthorityImpl implements Authority{
 			System.out.println(encriptAux);
 			int from = encriptAux.indexOf('/');
 			int to = encriptAux.length();
-			encriptAux = encriptAux.substring(from + 4,to);	
-			System.out.println(encriptAux.length());
+			encriptAux = encriptAux.substring(from + 4,to);		
 			//tamaño de encriptAux = 77
 			encryptText = encryptText +  encriptAux;
 			
