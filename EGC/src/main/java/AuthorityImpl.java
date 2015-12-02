@@ -77,16 +77,16 @@ public class AuthorityImpl implements Authority{
 		
 		
 		String[] cutText = cutVote(textToEncypt);
-		//TODO provisional. tengo que obtener las claves de la bd
-		//TODO obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
-		//en la bd sse guarda en base64
+		
+		//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
+		//en la bd se guarda en base64
 		publicKeyBD = getPublicKey(idVote);
 		byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
 		publicKeyBD = new String(keyDecoded);
-		
-		x = new BigInteger(publicKeyBD.substring(3, publicKeyBD.length()/2).trim());
-		y = new BigInteger(publicKeyBD.substring(publicKeyBD.length()/2 + 4, publicKeyBD.length()).trim());
-		
+				
+		x = new BigInteger(publicKeyBD.substring(0, publicKeyBD.indexOf("+")).trim());
+		y = new BigInteger(publicKeyBD.substring(publicKeyBD.lastIndexOf("+") + 1, publicKeyBD.length()).trim());
+				
 		publicKey = new PointGMP(x, y, curve);				
 		
 		for (String s: cutText){
