@@ -19,7 +19,7 @@ public class AuthorityImpl implements Authority{
 	public boolean postKey(String id) {
 		boolean res;
 		BigInteger secretKey;
-		PointGMP publicKey;
+		String publicKey;
 		String encodedSecretKey, encodedPublicKey;
 		res = false;
 		
@@ -29,9 +29,9 @@ public class AuthorityImpl implements Authority{
 			cryptoEngine.generateKeyPair();
 	
 			secretKey = cryptoEngine.getKeyPair().getSecretKey();
-			publicKey = cryptoEngine.getKeyPair().getPublicKey();
+			publicKey = cryptoEngine.getKeyPair().getPublicKey().getX()+"++++"+cryptoEngine.getKeyPair().getPublicKey().getY();
 			
-			encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.toString().getBytes());
+			encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
 			encodedSecretKey = DatatypeConverter.printBase64Binary(secretKey.toByteArray());
 			
 			RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
