@@ -307,7 +307,7 @@ public class RemoteDataBaseManager {
 		return success;
 	}
 
-	public Integer getAccessToken(Integer votationId){
+	public static Integer getAccessToken(Integer votationId){
 		Integer result = -1;
 		Connection conn = null;
 		Statement stmt = null;

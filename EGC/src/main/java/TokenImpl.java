@@ -41,7 +41,17 @@ public class TokenImpl implements Token {
 				calculateToken(votationId));
 	}
 
-
+	@Override
+	public boolean checkToken(Integer votationId, Integer token) {
+		boolean result = false;
+		
+		if(calculateToken(votationId).equals(token)){
+			Integer storedToken = RemoteDataBaseManager.getAccessToken(votationId);
+			result = token.equals(storedToken);
+		}
+		
+		return result;
+	}
 	
 	
 }
