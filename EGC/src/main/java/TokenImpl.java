@@ -32,5 +32,11 @@ public class TokenImpl implements Token {
 		
 	}
 
+	@Override
+	public boolean createToken(Integer votationId) {
+		return RemoteDataBaseManager.sendGeneratedToken(votationId, 
+				calculateToken(votationId));
+	}
+	
 	
 }
