@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class CryptoEngine {
 
-	private WeierStrassCurve curve;
+	protected WeierStrassCurve curve;
 	private EllipticKeyPair keyPair;
 	private PointGMP generateur;
 
@@ -85,6 +85,19 @@ public class CryptoEngine {
 		BigInteger C2 = readFormatedMessage(encoded);
 
 		PointGMP temp = C1.mult(keyPair.getSecretKey());
+		BigInteger decoded = C2.subtract(temp.getX());
+		decoded = decoded.mod(curve.getP());
+
+		System.out.println("Resultat El gamal " + decoded + " " + new String(decoded.toByteArray()) + "\n");
+
+		return new String(decoded.toByteArray());
+	}
+	
+	public String decodeString(String encoded, String secretKey) {
+		PointGMP C1 = readFormatedKey(encoded);
+		BigInteger C2 = readFormatedMessage(encoded);
+
+		PointGMP temp = C1.mult(new BigInteger(secretKey));
 		BigInteger decoded = C2.subtract(temp.getX());
 		decoded = decoded.mod(curve.getP());
 

@@ -68,7 +68,7 @@ public class VerificacionTest {
 		
 	}
 	//En este test se cifra y se descifra una cadena con formato voto
-	@Test
+	/*@Test
 	public void test6() {
 		String texto = "{\"age\": \"24\",\"answers\":[{\"question\":\"Pregunta 1\",\"answer_question\":\"SI\"}],\"id\": 1,\"autonomous_community\":\"Andalucía\",\"genere\": \"Masculino\",\"id_poll\": 32778";
 		byte[] cifrado = au.encrypt("1000", texto);
@@ -80,7 +80,7 @@ public class VerificacionTest {
 		}
 		Assert.assertEquals(texto, descifrado);
 		
-	}
+	}*/
 	
 	
 	

@@ -19,8 +19,12 @@ along with Elliptic_SDK.  If not, see <http://www.gnu.org/licenses/>.
 
 package main.java;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.crypto.BadPaddingException;
+
 public class main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BadPaddingException, UnsupportedEncodingException {
 		System.out.println("Test begins");
 
 		testElGamal();
@@ -30,6 +34,8 @@ public class main {
 		testGetPublicKey("999999995");
 		
 		testGetPrivateKey("999999995");
+		
+		testEncrypt("999999995", "hola hola hola hola hola hola hola hola hola hola hola");
 	}
 
 	private static void testElGamal() {
@@ -69,5 +75,19 @@ public class main {
 		
 		System.out.println(auth.getPrivateKey(id));
 		
+	}
+	
+	private static void testEncrypt(String id, String text) throws BadPaddingException, UnsupportedEncodingException{
+		Authority auth;
+		byte[] encrypt;
+		String text2;
+		
+		auth = new AuthorityImpl();
+		
+		encrypt = auth.encrypt(id, text);
+		
+		//text2 = auth.decrypt(id, encrypt);
+		
+		//System.out.println(text2);
 	}
 }

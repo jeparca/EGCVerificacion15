@@ -1,5 +1,7 @@
 package main.java;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.crypto.BadPaddingException;
 
 public interface Authority {
@@ -20,7 +22,7 @@ public interface Authority {
 		byte[] encrypt(String idVote,String textToEncypt);
 		
 		//Desencripta el texto con la clave privada de la votación cuya id se pasa como parámetro.	
-		String decrypt(String idVote,byte[] cipherText) throws BadPaddingException;
+		String decrypt(String idVote,byte[] cipherText) throws BadPaddingException, UnsupportedEncodingException;
 		
 		//El voto recibido lo corta en bloques de 31 caracteres
 		String[] cutVote(String votoEnClaro);

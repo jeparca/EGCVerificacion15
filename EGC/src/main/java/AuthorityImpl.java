@@ -1,7 +1,12 @@
 package main.java;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Base64;
+
 import javax.crypto.BadPaddingException;
+import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.xml.bind.DatatypeConverter;
 
 public class AuthorityImpl implements Authority{
@@ -63,13 +68,75 @@ public class AuthorityImpl implements Authority{
 	}
 
 	public byte[] encrypt(String idVote, String textToEncypt) {
-		// TODO Auto-generated method stub
-		return null;
+		byte[] result;
+		CryptoEngine ce = new CryptoEngine(idVote);
+		WeierStrassCurve curve = ce.curve;
+		String publicKeyBD = "";
+		PointGMP publicKey;
+		String encryptText = "";
+		BigInteger x;
+		BigInteger y;
+		
+		
+		String[] cutText = cutVote(textToEncypt);
+		
+		//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
+		//en la bd sse guarda en base64
+		publicKeyBD = getPublicKey(idVote);
+		byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
+		publicKeyBD = new String(keyDecoded);
+		
+		x = new BigInteger(publicKeyBD.substring(3, publicKeyBD.length()/2).trim());
+		y = new BigInteger(publicKeyBD.substring(publicKeyBD.length()/2 + 4, publicKeyBD.length()).trim());
+		
+		publicKey = new PointGMP(x, y, curve);				
+		
+		for (String s: cutText){
+			String encriptAux = "";
+			
+			encriptAux = ce.encodeString(s, publicKey);
+			System.out.println(encriptAux);
+			int from = encriptAux.indexOf('/');
+			int to = encriptAux.length();
+			encriptAux = encriptAux.substring(from + 4,to);	
+			System.out.println(encriptAux.length());
+			//tamaño de encriptAux = 77
+			encryptText = encryptText +  encriptAux;
+			
+		}
+		//quito los espacios delanteros y traseros
+		encryptText = encryptText.trim();
+		System.out.println("Texto cifrado completo en String: " + encryptText);
+		
+		//convierto a byte[]
+		result = encryptText.getBytes();
+		
+		return result;
 	}
 	
-	public String decrypt(String idVote, byte[] cipherText) throws BadPaddingException {
-		// TODO Auto-generated method stub
-		return null;
+	public String decrypt(String idVote, byte[] cipherText) throws BadPaddingException, UnsupportedEncodingException {
+		String result;
+		CryptoEngine ce;
+		String cipherTextString;
+		String cipherTextStringFormat;
+		String decoded;
+		
+		ce = new CryptoEngine(idVote);
+		cipherTextString = new String(cipherText, "UTF-8");
+		result = "";
+		
+		cipherTextStringFormat = formatToDecode(cipherTextString, idVote);
+		System.out.println(cipherTextStringFormat);
+		
+		//TODO: MODIFICAR EL METODO DECODESTRING
+		for (int i = 0; i < cipherTextString.length() / 77; i++){
+			decoded = "";
+			
+			decoded = ce.decodeString(cipherTextString);
+			result = result + decoded;
+		}
+				
+		return result;
 	}
 
 	@Override
@@ -101,6 +168,13 @@ public class AuthorityImpl implements Authority{
 		}else{
 			result[0] = votoEnClaro;
 		}
+		
+		return result;
+	}
+	
+	private String formatToDecode(String cipherText, String idVote){
+		String result;
+		result = "";
 		
 		return result;
 	}
