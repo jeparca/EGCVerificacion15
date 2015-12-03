@@ -19,14 +19,16 @@ public class TokenImpl implements Token {
 		char[] numberByNumber = binaryInteger.toCharArray();
 		
 		
-		for(int i=0;i<numberByNumber.length; i++){
+		for(int i=numberByNumber.length-1; 0 < i; i--){
 			Integer digit = new Integer(numberByNumber[i]);
-			if(digit > 0){
-				token += digit*tokenAuxList[i];
+			for (int j=tokenAuxList.length-1; 0 < j; j--){
+				if(digit > 0){
+					token += digit*tokenAuxList[j];
+				}
 			}
 		}
 		
-		return token;
+		return token*17*31;
 		
 	}
 
