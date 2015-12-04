@@ -137,35 +137,24 @@ public class AuthorityImpl implements Authority{
 
 	@Override
 	public String[] cutVote(String votoEnClaro) {
-		int arrayLength = votoEnClaro.length() / 31; 
-		String[] result = new String[arrayLength + 1];
-		String corte = "";
+		String[] result;
+		int arrayLength;
+		int intervalo;
 		
-		if(votoEnClaro.length() > 31){
-			//corto
-			for(int i = 0; i < arrayLength + 1; i++){
-				int from = i * 31;
-				int to = from + 32;
-				if(i == 0){
-					corte = votoEnClaro.substring(from,to);
-					result[i] = corte;
-				}else{
-					
-					//si el ultimo trozo es menor a 31				
-					if(votoEnClaro.length() - from < 31){
-						corte = votoEnClaro.substring(from + i, votoEnClaro.length());
-					}else{
-						corte = votoEnClaro.substring(from + i, from + i + 32);
-					}
-					result[i] = corte;
-				}
-				
-			}
-		}else{
-			result[0] = votoEnClaro;
-		}
-		
-		return result;
+		//corte cada 31 caracteres
+		intervalo = 31;
+		arrayLength = (int) Math.ceil(((votoEnClaro.length() / (double)intervalo)));
+		result = new String[arrayLength];
+
+	    int j = 0;
+	    int lastIndex = result.length - 1;
+	    for (int i = 0; i < lastIndex; i++) {
+	        result[i] = votoEnClaro.substring(j, j + intervalo);
+	        j += intervalo;
+	    } //Añado el último bloque
+	    result[lastIndex] = votoEnClaro.substring(j);
+
+	    return result;
 	}
 	
 	private String formatToDecode(String cipherText, String idVote){
