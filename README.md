@@ -1,9 +1,8 @@
 # EGCVerificacion15
-Repositorio del subsistema de verificaciÃ³n de Agora@US del aÃ±o 2015
+Repositorio del subsistema de verificación de Agora@US del año 2015
 
 Grupo formado por:
 - Alberto Garcia Sanchez
 - Angeles Gonzalez Tornay
-- David MuÃoz Moya
+- David Mu�oz Moya
 - Jesus Pardo Carrera
-- Hector Almagro Martos

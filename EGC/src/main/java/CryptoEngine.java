@@ -52,7 +52,7 @@ public class CryptoEngine {
 	public void generateKeyPair() {
 		Random rnd = new Random();
 
-		BigInteger secretKey = BigInteger.probablePrime(7, rnd);
+		BigInteger secretKey = BigInteger.probablePrime(63, rnd);
 		PointGMP publicKey = generateur.mult(secretKey);
 
 		keyPair = new EllipticKeyPair(secretKey, publicKey);

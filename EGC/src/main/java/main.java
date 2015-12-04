@@ -27,15 +27,15 @@ public class main {
 	public static void main(String[] args) throws BadPaddingException, UnsupportedEncodingException {
 		System.out.println("Test begins");
 
-		testElGamal();
+		//testElGamal();
 		
-		testPostKeys("999999995");
+		//testPostKeys("999999989");
 		
-		testGetPublicKey("999999995");
+		//testGetPublicKey("999999995");
 		
-		testGetPrivateKey("999999995");
+		//testGetPrivateKey("999999995");
 		
-		testEncrypt("999999995", "hola hola hola hola hola hola hola hola hola hola hola");
+		testEncrypt("999999991", "hola hola hola hola hola hola hola hola hola hola hola");
 	}
 
 	private static void testElGamal() {
@@ -43,6 +43,7 @@ public class main {
 		cryptoEngine.generateKeyPair();
 
 		String encoded = cryptoEngine.encodeString("test test test test test test t", cryptoEngine.getKeyPair().getPublicKey());
+		System.out.println("El cifrado del test " + encoded);
 
 		System.out.println(cryptoEngine.decodeString(encoded));
 	}
@@ -86,8 +87,8 @@ public class main {
 		
 		encrypt = auth.encrypt(id, text);
 		
-		//text2 = auth.decrypt(id, encrypt);
+		text2 = auth.decrypt(id, encrypt);
 		
-		//System.out.println(text2);
+		System.out.println(text2);
 	}
 }
