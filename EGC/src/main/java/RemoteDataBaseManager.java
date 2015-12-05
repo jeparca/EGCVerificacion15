@@ -8,8 +8,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class RemoteDataBaseManager {
 	
@@ -254,4 +258,98 @@ public class RemoteDataBaseManager {
 		return res;
 	}
 
+	public static boolean sendGeneratedToken(Integer votationId, Integer token){
+		boolean success = false;
+		Connection conn = null;
+		Statement stmt = null;
+	    String USER = "jeparcac_egc";
+	    String PASS = "kqPTE8dLz3GVtks";  
+	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
+		
+		try {	
+		
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		
+		stmt = conn.createStatement();
+		
+		String sql = "INSERT INTO token (idvotation, accesstoken)" +
+                "VALUES (?, ?)";
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, votationId);
+        preparedStatement.setInt(2, token);
+        int r = preparedStatement.executeUpdate(); 
+        
+        if(r == 1){
+        	success = true;
+        }else if(r == 0){
+        	success = false;
+        }
+	    
+		} catch(SQLException se) {
+	        System.out.println("Ooops! We have detected an error. Please, check that your votationID hasn't a generated token.");
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if(stmt != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	        }
+	        try {
+	            if(conn != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	            se.printStackTrace();
+	        }
+	    }
+		
+		return success;
+	}
+
+	public static Integer getAccessToken(Integer votationId){
+		Integer result = -1;
+		Connection conn = null;
+		Statement stmt = null;
+	    String USER = "jeparcac_egc";
+	    String PASS = "kqPTE8dLz3GVtks";  
+	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
+		
+		try {	
+		
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		
+		stmt = conn.createStatement();
+		
+		String sql = "SELECT * FROM token WHERE idvotation = ?";
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, votationId);
+        ResultSet r = preparedStatement.executeQuery();
+        
+        while(r.next()){
+        	result = r.getInt("accesstoken");
+        }
+        
+		} catch(SQLException se) {
+	        se.printStackTrace();
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if(stmt != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	        }
+	        try {
+	            if(conn != null)
+	                conn.close();
+	        } catch(SQLException se) {
+	            se.printStackTrace();
+	        }
+	    }
+		
+		return result;
+	}
+	
 }
