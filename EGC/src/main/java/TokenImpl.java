@@ -1,6 +1,6 @@
 package main.java;
 
-public class TokenImpl implements Token {
+public class TokenImpl{
 
 	
 	private static final Integer[] tokenAuxList = {1128, 1171, 1994, 2013, 
@@ -9,7 +9,7 @@ public class TokenImpl implements Token {
 			7038, 7402, 7473, 7640, 7843, 8001, 8278, 8904, 9374, 9573};
 	
 	
-	private Integer calculateToken(Integer votationId){
+	private static Integer calculateToken(Integer votationId){
 		
 		Integer token = 0;
 		
@@ -32,19 +32,17 @@ public class TokenImpl implements Token {
 		
 	}
 
-	private void checkId(Integer votationId) {
+	private static void checkId(Integer votationId) {
 		assert votationId < 999999998;
 		
 	}
 
-	@Override
-	public boolean createToken(Integer votationId) {
+	public static boolean createToken(Integer votationId) {
 		return RemoteDataBaseManager.sendGeneratedToken(votationId, 
 				calculateToken(votationId));
 	}
 
-	@Override
-	public boolean checkToken(Integer votationId, Integer token) {
+	public static boolean checkToken(Integer votationId, Integer token) {
 		boolean result = false;
 		
 		if(calculateToken(votationId).equals(token)){

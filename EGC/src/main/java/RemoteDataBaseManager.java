@@ -287,8 +287,8 @@ public class RemoteDataBaseManager {
         }
 	    
 		} catch(SQLException se) {
-	        se.printStackTrace();
-	    } catch(Exception e) {
+	        System.out.println("Ooops! We have detected an error. Please, check that your votationID hasn't a generated token.");
+	    }catch(Exception e) {
 	        e.printStackTrace();
 	    } finally {
 	        try {
