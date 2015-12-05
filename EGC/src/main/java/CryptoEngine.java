@@ -57,6 +57,11 @@ public class CryptoEngine {
 
 		keyPair = new EllipticKeyPair(secretKey, publicKey);
 	}
+	
+	public void generateKeyPair(PointGMP publicKey, BigInteger secretKey) {
+
+		keyPair = new EllipticKeyPair(secretKey, publicKey);
+	}
 
 	public EllipticKeyPair generateKeyPairWithSecret(BigInteger secretKey) {
 		PointGMP publicKey = generateur.mult(secretKey);
