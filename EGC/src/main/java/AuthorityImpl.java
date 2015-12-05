@@ -2,7 +2,9 @@ package main.java;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.xml.bind.DatatypeConverter;
@@ -32,12 +34,12 @@ public class AuthorityImpl implements Authority{
 			publicKey = cryptoEngine.getKeyPair().getPublicKey().getX()+"++++"+cryptoEngine.getKeyPair().getPublicKey().getY();
 			
 			encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
-			encodedSecretKey = DatatypeConverter.printBase64Binary(secretKey.toByteArray());
 			
 			RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
 			 //Llamamos a la función que se encarga de guardar el par de claves asociadas
 			 // a la votación cuya id se especifica como parámetro.
-			if (rdbm.postKeys(id, encodedPublicKey, encodedSecretKey)){
+
+			if (rdbm.postKeys(id, encodedPublicKey, secretKey.toString())){
 				res = true;
 			}
 			
@@ -92,17 +94,22 @@ public class AuthorityImpl implements Authority{
 		for (String s: cutText){
 			String encriptAux = "";
 			
-			encriptAux = ce.encodeString(s, publicKey);			
+			encriptAux = ce.encodeString(s, publicKey);	
+
 			int from = encriptAux.indexOf('/');
 			int to = encriptAux.length();
-			encriptAux = encriptAux.substring(from + 4,to);		
+			encriptAux = encriptAux.substring(from + 4,to);	
+
 			//tamaño de encriptAux = 77
-			encryptText = encryptText +  encriptAux;
-			
+			if(!encryptText.equals("")){
+				encryptText = encryptText + "|" + encriptAux;
+			}else{
+				encryptText = encriptAux;
+			}
+				
 		}
 		//quito los espacios delanteros y traseros
 		encryptText = encryptText.trim();
-		System.out.println("Texto cifrado completo en String: " + encryptText);
 		
 		//convierto a byte[]
 		result = encryptText.getBytes();
@@ -114,23 +121,38 @@ public class AuthorityImpl implements Authority{
 		String result;
 		CryptoEngine ce;
 		String cipherTextString;
-		String cipherTextStringFormat;
 		String decoded;
+		String secretKey;
+		String publicKey;
 		
 		ce = new CryptoEngine(idVote);
+		
+		secretKey = getPrivateKey(idVote);
+		
+		publicKey = getPublicKey(idVote);
+		byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
+		publicKey = new String(keyDecoded2);
+		
+		int longKey = (publicKey.length()-4)/2;
+
+		ce.generateKeyPair(new PointGMP(new BigInteger(publicKey.substring(0, longKey)),
+				new BigInteger(publicKey.substring(longKey+4, publicKey.length())), ce.curve), 
+				new BigInteger(secretKey));
+
 		cipherTextString = new String(cipherText, "UTF-8");
 		result = "";
 		
-		cipherTextStringFormat = formatToDecode(cipherTextString, idVote);
-		System.out.println(cipherTextStringFormat);
-		
-		//TODO: MODIFICAR EL METODO DECODESTRING
-		for (int i = 0; i < cipherTextString.length() / 77; i++){
+		for (String s: cutCifVote(cipherTextString)){
+			String s2;
 			decoded = "";
+			s2 = publicKey + "////" + s;
 			
-			decoded = ce.decodeString(cipherTextString);
+			decoded = ce.decodeString(s2, secretKey);
 			result = result + decoded;
+			
 		}
+		
+		
 				
 		return result;
 	}
@@ -158,13 +180,51 @@ public class AuthorityImpl implements Authority{
 	    return result;
 	}
 	
+	@Override
+	public String[] cutCifVote(String votoCifrado) {
+		
+		List<String>  res = new ArrayList<String>();
+		List<Integer> indices = new ArrayList<Integer>();
+		
+		int index = votoCifrado.indexOf("|");
+		while(index >= 0) {
+		    indices.add(index);
+		    index = votoCifrado.indexOf("|", index+1);
+		}
+		
+		int to = 0;
+		int from = 0;
+		
+		for(Integer p: indices){
+			
+			to = p;
+			res.add(votoCifrado.substring(from, to));
+			from = to + 1;
+			
+			if(p == indices.get(indices.size()-1)){
+				res.add(votoCifrado.substring(from, votoCifrado.length()));
+			}
+			
+		}
+		
+		String[] result = new String[res.size()];
+		result = res.toArray(result);
+		
+		return result;
+		
+	}
+	
 	private String formatToDecode(String cipherText, String idVote){
 		String result;
 		result = "";
 		String publicKeys;
 				
 		publicKeys = getPublicKey(idVote);
-		result = publicKeys+"////"+cipherText;
+		
+		byte[] keyDecoded = Base64.getDecoder().decode(publicKeys.getBytes());
+		String publicKeyBD = new String(keyDecoded);
+		
+		result = publicKeyBD+"////"+cipherText;
 		
 		return result;
 	}
