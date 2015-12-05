@@ -1,6 +1,6 @@
 package main.java;
 
-public class TokenImpl{
+public class Token{
 
 	
 	private static final Integer[] tokenAuxList = {1128, 1171, 1994, 2013, 
