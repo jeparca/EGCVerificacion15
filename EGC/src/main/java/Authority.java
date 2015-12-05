@@ -26,5 +26,8 @@ public interface Authority {
 		
 		//El voto recibido lo corta en bloques de 31 caracteres
 		String[] cutVote(String votoEnClaro);
+
+		//El voto cifrado recibido lo corta en bloques para su posterior recorrido en el método de descifrar
+		String[] cutCifVote(String votoEnClaro);
 	
 }
