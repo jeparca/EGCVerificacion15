@@ -8,7 +8,7 @@ public class TestToken {
 		
 		boolean test = Token.createToken(999999998);
 		
-		//System.out.println(test);
+		System.out.println(test);
 		boolean test2 = Token.checkToken(999999998, 8161653);
 
 		System.out.println(test2);

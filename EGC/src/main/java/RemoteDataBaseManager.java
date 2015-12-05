@@ -327,8 +327,10 @@ public class RemoteDataBaseManager {
         preparedStatement.setInt(1, votationId);
         ResultSet r = preparedStatement.executeQuery();
         
-        result = r.getInt("accesstoken");
-
+        while(r.next()){
+        	result = r.getInt("accesstoken");
+        }
+        
 		} catch(SQLException se) {
 	        se.printStackTrace();
 	    } catch(Exception e) {
