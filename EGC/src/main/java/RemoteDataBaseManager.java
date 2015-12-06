@@ -1,13 +1,5 @@
 package main.java;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +8,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class RemoteDataBaseManager {
+	
+	
+	
+	private static Connection getDatabaseConnection(){
+		String USER = "jeparcac_egc";
+	    String PASS = "kqPTE8dLz3GVtks";  
+	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
+	    
+	    Connection conn = null;
+	    
+	    try{
+	    	conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	    }catch (Exception e){
+	    	e.printStackTrace();
+	    }
+	    
+	    return conn;	    
+	    
+	}
 	
 	/**
 	 * Función que almacena en la base de datos remota un par de claves de cifrado RSA
@@ -29,13 +40,10 @@ public class RemoteDataBaseManager {
 		boolean success = false;
 		Connection conn = null;
 		Statement stmt = null;
-	    String USER = "jeparcac_egc";
-	    String PASS = "kqPTE8dLz3GVtks";  
-	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
-		
+	    
 		try {	
 		
-		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		conn = getDatabaseConnection();
 		
 		stmt = conn.createStatement();
 		
@@ -83,12 +91,9 @@ public class RemoteDataBaseManager {
 	public String getSecretKey(String id){
 		String res = "";
 		Connection conn = null;
-		String url = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
-		String USER = "jeparcac_egc";
-	    String PASS = "kqPTE8dLz3GVtks";
-	    
+		
 	    try {			
-		  conn = DriverManager.getConnection(url, USER, PASS);
+		  conn = getDatabaseConnection();
 	      Statement select = conn.createStatement();
 	      ResultSet result = select
 	          .executeQuery("SELECT privateKey FROM keysvotes where idvotation="+id);
@@ -119,12 +124,9 @@ public class RemoteDataBaseManager {
 	public String getPublicKey(String id){
 		String res = "";
 		Connection conn = null;
-		String url = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
-		String USER = "jeparcac_egc";
-	    String PASS = "kqPTE8dLz3GVtks";
 	    
 	    try {			
-		  conn = DriverManager.getConnection(url, USER, PASS);
+		  conn = getDatabaseConnection();
 	      Statement select = conn.createStatement();
 	      ResultSet result = select
 	          .executeQuery("SELECT publicKey FROM keysvotes where idvotation="+id);
@@ -151,13 +153,10 @@ public class RemoteDataBaseManager {
 		boolean success = false;
 		Connection conn = null;
 		Statement stmt = null;
-	    String USER = "jeparcac_egc";
-	    String PASS = "kqPTE8dLz3GVtks";  
-	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
 		
 		try {	
 		
-		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		conn = getDatabaseConnection();
 		
 		stmt = conn.createStatement();
 		
@@ -200,13 +199,10 @@ public class RemoteDataBaseManager {
 		Integer result = -1;
 		Connection conn = null;
 		Statement stmt = null;
-	    String USER = "jeparcac_egc";
-	    String PASS = "kqPTE8dLz3GVtks";  
-	    String DB_URL = "jdbc:mysql://egc.jeparca.com:3306/jeparcac_egc";
-		
+	    
 		try {	
 		
-		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		conn = getDatabaseConnection();
 		
 		stmt = conn.createStatement();
 		
