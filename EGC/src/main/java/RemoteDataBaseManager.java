@@ -152,6 +152,13 @@ public class RemoteDataBaseManager {
 	    return res;
 	}
 
+	/**
+	 * Esta función envía a la base de datos el token generado para un id 
+	 * de votación correspondiente.
+	 * @param votationId. Corresponde al id de la votación.
+	 * @param token. Corresponde al token que se va a guardar en la base de datos
+	 * @return success. Booleano que indica si se ha ejecutado la operación SQL con éxito.
+	 */
 	public static boolean sendGeneratedToken(Integer votationId, Integer token){
 		boolean success = false;
 		Connection conn = null;
