@@ -205,6 +205,12 @@ public class RemoteDataBaseManager {
 		return success;
 	}
 
+	/**
+	 * Esta función extrae de la base de datos un token que se ha guardado
+	 * anteriormente, dado un id de votación
+	 * @param votationId. Corresponde al id de la votación.
+	 * @return result. Número entero que corresponde con el token extraido.
+	 */
 	public static Integer getAccessToken(Integer votationId){
 		Integer result = -1;
 		Connection conn = null;
