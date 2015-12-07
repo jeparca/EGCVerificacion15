@@ -46,16 +46,35 @@ public class Token{
 		
 	}
 
+	/**
+	 * Comprueba que el id de la votación es menor a un número de 9 cifras.
+	 * @param votationId. Corresponde al id de la votación.
+	 */
 	private static void checkId(Integer votationId) {
 		assert votationId < 999999998;
 		
 	}
 
+	/**
+	 * Esta función crea el token con la función definida anteriormente y la 
+	 * envía al método de escritura del token en la base de datos.
+	 * @param votationId. Corresponde al id de la votación.
+	 * @return Resultado booleano correspondiente a la escritura en la base de datos.
+	 */
 	public static boolean createToken(Integer votationId) {
 		return RemoteDataBaseManager.sendGeneratedToken(votationId, 
 				calculateToken(votationId));
 	}
 
+	/**
+	 * Esta función comprueba que el token introducido de acceso al subsistema
+	 * corresponde con el token que debería generarse con el método de creación
+	 * de token. Además, comprueba que el token introducido corresponde con el
+	 * que está guardado en la base de datos para el mismo id de votación.
+	 * @param votationId. Corresponde al id de la votación.
+	 * @param token. Corresponde al token de acceso al subsistema.
+	 * @return result. Booleano que indica si el token introducido es correcto.
+	 */
 	public static boolean checkToken(Integer votationId, Integer token) {
 		boolean result = false;
 		
