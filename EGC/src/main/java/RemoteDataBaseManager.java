@@ -10,7 +10,10 @@ import java.sql.Statement;
 public class RemoteDataBaseManager {
 	
 	
-	
+	/**
+	 * Esta función provee el conector con la base de datos
+	 * @return conn. Conector de conexión con la base de datos.
+	 */
 	private static Connection getDatabaseConnection(){
 		String USER = "jeparcac_egc";
 	    String PASS = "kqPTE8dLz3GVtks";  
