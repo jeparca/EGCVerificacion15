@@ -10,6 +10,19 @@ public class Token{
 			961864, 976931, 982612};
 	
 	
+	/**
+	 * Esta función hace el cálculo del Token necesario para el acceso al subsistema
+	 * de verificación. Este token es el que se almacenará en la base de datos
+	 * posteriormente. Este token se calcula de la siguiente forma:
+	 * 1 - El id de la votación pasa a binario.
+	 * 2 - Recorremos el número binario y multiplicamos del final hacia el 
+	 *     principio con el índice correspondiente de la lista de números
+	 *     estática.
+	 * 3 - Vamos sumando el resultado de la multiplicación a lo que ya tuvieramos.
+	 * 4 - Finalmente, multiplicamos por dos primos para aumentar el tamaño.
+	 * @param votationId. Corresponde al id de la votación.
+	 * @return token. Número entero que corresponde con el token generado.
+	 */
 	private static Integer calculateToken(Integer votationId){
 		
 		Integer token = 0;
