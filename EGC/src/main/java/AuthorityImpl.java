@@ -191,6 +191,7 @@ public class AuthorityImpl implements Authority{
 		
 		List<String>  res = new ArrayList<String>();
 		List<Integer> indices = new ArrayList<Integer>();
+		String[] result;
 		
 		int index = votoCifrado.indexOf("|");
 		while(index >= 0) {
@@ -198,24 +199,33 @@ public class AuthorityImpl implements Authority{
 		    index = votoCifrado.indexOf("|", index+1);
 		}
 		
-		int to = 0;
-		int from = 0;
+		if(indices.size() != 0){
 		
-		for(Integer p: indices){
+			int to = 0;
+			int from = 0;
 			
-			to = p;
-			res.add(votoCifrado.substring(from, to));
-			from = to + 1;
-			
-			if(p == indices.get(indices.size()-1)){
-				res.add(votoCifrado.substring(from, votoCifrado.length()));
+			for(Integer p: indices){
+				
+				to = p;
+				res.add(votoCifrado.substring(from, to));
+				from = to + 1;
+				
+				if(p == indices.get(indices.size()-1)){
+					res.add(votoCifrado.substring(from, votoCifrado.length()));
+				}
+				
 			}
+
+			result = new String[res.size()];
+			result = res.toArray(result);
+			
+		}else{
+			
+			result = new String[1];
+			result[0] = votoCifrado;
 			
 		}
-		
-		String[] result = new String[res.size()];
-		result = res.toArray(result);
-		
+
 		return result;
 		
 	}
