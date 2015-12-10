@@ -7,7 +7,7 @@ import javax.crypto.BadPaddingException;
 public interface Authority {
 
 	//Recibe la id de la votación, crea las claves y las guarda en BD.
-		boolean postKey(String id);
+		boolean postKey(String id, Integer token);
 		
 		//Recibe la id de la votación y devuelve su clave pública para poder cifrar.
 		String getPublicKey(String id);

@@ -18,33 +18,39 @@ public class AuthorityImpl implements Authority{
 	 * @param id. Corresponde al id de la votación
 	 * @return res. Boolean que indica si la operación ha tenido éxito.
 	 */
-	public boolean postKey(String id) {
+	public boolean postKey(String id, Integer token) {
 		boolean res;
 		BigInteger secretKey;
 		String publicKey;
 		String encodedSecretKey, encodedPublicKey;
 		res = false;
 		
-		try{
+		if(Token.checkToken(new Integer(id), token)){
+			try{
+				
+				Token.createToken(new Integer(id));				
+				
+				CryptoEngine cryptoEngine = new CryptoEngine(id);
+				cryptoEngine.generateKeyPair();
 		
-			CryptoEngine cryptoEngine = new CryptoEngine(id);
-			cryptoEngine.generateKeyPair();
-	
-			secretKey = cryptoEngine.getKeyPair().getSecretKey();
-			publicKey = cryptoEngine.getKeyPair().getPublicKey().getX()+"++++"+cryptoEngine.getKeyPair().getPublicKey().getY();
-			
-			encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
-			
-			RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
-			 //Llamamos a la función que se encarga de guardar el par de claves asociadas
-			 // a la votación cuya id se especifica como parámetro.
+				secretKey = cryptoEngine.getKeyPair().getSecretKey();
+				publicKey = cryptoEngine.getKeyPair().getPublicKey().getX()+"++++"+cryptoEngine.getKeyPair().getPublicKey().getY();
+				
+				encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
+				
+				RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
+				 //Llamamos a la función que se encarga de guardar el par de claves asociadas
+				 // a la votación cuya id se especifica como parámetro.
 
-			if (rdbm.postKeys(id, encodedPublicKey, secretKey.toString())){
-				res = true;
+				if (rdbm.postKeys(id, encodedPublicKey, secretKey.toString())){
+					res = true;
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
 			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
+		}else{
+			System.out.println("El token no coincide");
 		}
 		
 		return res;
