@@ -95,7 +95,7 @@ public class AuthorityImpl implements Authority{
 	}
 
 	public byte[] encrypt(String idVote, String textToEncypt, Integer token) {
-		byte[] result;
+		byte[] result = {};
 		CryptoEngine ce = new CryptoEngine(idVote);
 		WeierStrassCurve curve = ce.curve;
 		String publicKeyBD = "";
@@ -104,82 +104,89 @@ public class AuthorityImpl implements Authority{
 		BigInteger x;
 		BigInteger y;
 		
-		
-		String[] cutText = cutVote(textToEncypt);
-		
-		//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
-		//en la bd se guarda en base64
-		publicKeyBD = getPublicKey(idVote, token);
-		byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
-		publicKeyBD = new String(keyDecoded);
-				
-		x = new BigInteger(publicKeyBD.substring(0, publicKeyBD.indexOf("+")).trim());
-		y = new BigInteger(publicKeyBD.substring(publicKeyBD.lastIndexOf("+") + 1, publicKeyBD.length()).trim());
-				
-		publicKey = new PointGMP(x, y, curve);				
-		
-		for (String s: cutText){
-			String encriptAux = "";
+		if(Token.checkTokenDb(new Integer(idVote), token)){
+			String[] cutText = cutVote(textToEncypt);
 			
-			encriptAux = ce.encodeString(s, publicKey);	
-
-			int from = encriptAux.indexOf('/');
-			int to = encriptAux.length();
-			encriptAux = encriptAux.substring(from + 4,to);	
-
-			//tamaño de encriptAux = 77
-			if(!encryptText.equals("")){
-				encryptText = encryptText + "|" + encriptAux;
-			}else{
-				encryptText = encriptAux;
-			}
+			//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
+			//en la bd se guarda en base64
+			publicKeyBD = getPublicKey(idVote, token);
+			byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
+			publicKeyBD = new String(keyDecoded);
+					
+			x = new BigInteger(publicKeyBD.substring(0, publicKeyBD.indexOf("+")).trim());
+			y = new BigInteger(publicKeyBD.substring(publicKeyBD.lastIndexOf("+") + 1, publicKeyBD.length()).trim());
+					
+			publicKey = new PointGMP(x, y, curve);				
+			
+			for (String s: cutText){
+				String encriptAux = "";
 				
+				encriptAux = ce.encodeString(s, publicKey);	
+
+				int from = encriptAux.indexOf('/');
+				int to = encriptAux.length();
+				encriptAux = encriptAux.substring(from + 4,to);	
+
+				//tamaño de encriptAux = 77
+				if(!encryptText.equals("")){
+					encryptText = encryptText + "|" + encriptAux;
+				}else{
+					encryptText = encriptAux;
+				}
+					
+			}
+			//quito los espacios delanteros y traseros
+			encryptText = encryptText.trim();
+			
+			//convierto a byte[]
+			result = encryptText.getBytes();
+
+		}else{
+			System.out.println("El token no coincide en encriptar");
 		}
-		//quito los espacios delanteros y traseros
-		encryptText = encryptText.trim();
-		
-		//convierto a byte[]
-		result = encryptText.getBytes();
-		
+				
 		return result;
 	}
 	
 	public String decrypt(String idVote, byte[] cipherText, Integer token) throws BadPaddingException, UnsupportedEncodingException {
-		String result;
+		String result = "";
 		CryptoEngine ce;
 		String cipherTextString;
 		String decoded;
 		String secretKey;
 		String publicKey;
 		
-		ce = new CryptoEngine(idVote);
-		
-		secretKey = getPrivateKey(idVote, token);
-		
-		publicKey = getPublicKey(idVote, token);
-		byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
-		publicKey = new String(keyDecoded2);
-		
-		int longKey = (publicKey.length()-4)/2;
-
-		ce.generateKeyPair(new PointGMP(new BigInteger(publicKey.substring(0, longKey)),
-				new BigInteger(publicKey.substring(longKey+4, publicKey.length())), ce.curve), 
-				new BigInteger(secretKey));
-
-		cipherTextString = new String(cipherText, "UTF-8");
-		result = "";
-		
-		for (String s: cutCifVote(cipherTextString)){
-			String s2;
-			decoded = "";
-			s2 = publicKey + "////" + s;
+		if(Token.checkTokenDb(new Integer(idVote), token)){
+			ce = new CryptoEngine(idVote);
 			
-			decoded = ce.decodeString(s2, secretKey);
-			result = result + decoded;
+			secretKey = getPrivateKey(idVote, token);
 			
+			publicKey = getPublicKey(idVote, token);
+			byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
+			publicKey = new String(keyDecoded2);
+			
+			int longKey = (publicKey.length()-4)/2;
+
+			ce.generateKeyPair(new PointGMP(new BigInteger(publicKey.substring(0, longKey)),
+					new BigInteger(publicKey.substring(longKey+4, publicKey.length())), ce.curve), 
+					new BigInteger(secretKey));
+
+			cipherTextString = new String(cipherText, "UTF-8");
+			result = "";
+			
+			for (String s: cutCifVote(cipherTextString)){
+				String s2;
+				decoded = "";
+				s2 = publicKey + "////" + s;
+				
+				decoded = ce.decodeString(s2, secretKey);
+				result = result + decoded;
+				
+			}
+
+		}else{
+			System.out.println("El token no coincide en desencriptar");
 		}
-		
-		
 				
 		return result;
 	}
