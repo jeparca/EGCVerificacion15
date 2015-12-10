@@ -72,10 +72,19 @@ public class AuthorityImpl implements Authority{
 		
 	}
 
-	public String getPrivateKey(String id) {
-		RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
-		//Llamamos a la función que conecta con la base de datos remota y obtiene la clave privada.
-		return rdbm.getSecretKey(id);
+	public String getPrivateKey(String id, Integer token) {
+		
+		String result = "";
+		
+		if(Token.checkTokenDb(new Integer(id), token)){
+			RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
+			//Llamamos a la función que conecta con la base de datos remota y obtiene la clave privada.
+			result = rdbm.getSecretKey(id);
+		}else{
+			System.out.println("El token no coincide en getPrivateKey");
+		}		
+		
+		return result;
 	}
 
 	public boolean checkVote(byte[] votoCifrado, String id) {
@@ -143,7 +152,7 @@ public class AuthorityImpl implements Authority{
 		
 		ce = new CryptoEngine(idVote);
 		
-		secretKey = getPrivateKey(idVote);
+		secretKey = getPrivateKey(idVote, token);
 		
 		publicKey = getPublicKey(idVote, token);
 		byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());

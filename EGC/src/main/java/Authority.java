@@ -13,7 +13,7 @@ public interface Authority {
 		String getPublicKey(String id, Integer token);
 		
 		//Recibe la id de la votación y devuelve su clave privada para poder descifrar.
-		String getPrivateKey(String id);
+		String getPrivateKey(String id, Integer token);
 		
 		//Recibe un voto cifrado y un id de la votación, y comprueba si ese voto ha sido alterado.
 		boolean checkVote(byte[] votoCifrado, String id);
