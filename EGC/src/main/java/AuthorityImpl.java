@@ -9,6 +9,8 @@ import java.util.List;
 import javax.crypto.BadPaddingException;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class AuthorityImpl implements Authority{
 	
 	/**
@@ -247,6 +249,14 @@ public class AuthorityImpl implements Authority{
 
 		return result;
 		
+	}
+	
+	private String stringToSHA1(String text){
+		String result = "";
+		
+		result = DigestUtils.sha1Hex(text);
+		
+		return result;
 	}
 	
 
