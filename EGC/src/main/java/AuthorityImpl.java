@@ -249,19 +249,5 @@ public class AuthorityImpl implements Authority{
 		
 	}
 	
-	private String formatToDecode(String cipherText, String idVote, Integer token){
-		String result;
-		result = "";
-		String publicKeys;
-				
-		publicKeys = getPublicKey(idVote, token);
-		
-		byte[] keyDecoded = Base64.getDecoder().decode(publicKeys.getBytes());
-		String publicKeyBD = new String(keyDecoded);
-		
-		result = publicKeyBD+"////"+cipherText;
-		
-		return result;
-	}
 
 }
