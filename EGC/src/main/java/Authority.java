@@ -10,7 +10,7 @@ public interface Authority {
 		boolean postKey(String id, Integer token);
 		
 		//Recibe la id de la votación y devuelve su clave pública para poder cifrar.
-		String getPublicKey(String id);
+		String getPublicKey(String id, Integer token);
 		
 		//Recibe la id de la votación y devuelve su clave privada para poder descifrar.
 		String getPrivateKey(String id);
@@ -19,10 +19,10 @@ public interface Authority {
 		boolean checkVote(byte[] votoCifrado, String id);
 		
 		//Encripta el texto con la clave pública de la votación cuya id se pasa como parámetro.
-		byte[] encrypt(String idVote,String textToEncypt);
+		byte[] encrypt(String idVote,String textToEncypt, Integer token);
 		
 		//Desencripta el texto con la clave privada de la votación cuya id se pasa como parámetro.	
-		String decrypt(String idVote,byte[] cipherText) throws BadPaddingException, UnsupportedEncodingException;
+		String decrypt(String idVote,byte[] cipherText, Integer token) throws BadPaddingException, UnsupportedEncodingException;
 		
 		//El voto recibido lo corta en bloques de 31 caracteres
 		String[] cutVote(String votoEnClaro);

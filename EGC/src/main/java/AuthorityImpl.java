@@ -56,10 +56,20 @@ public class AuthorityImpl implements Authority{
 		return res;
 	}
 
-	public String getPublicKey(String id) {
-		RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
-		//Llamamos a la función que conecta con la base de datos remota y obtiene la clave pública.
-		return rdbm.getPublicKey(id);
+	public String getPublicKey(String id, Integer token) {
+		
+		String result = "";
+		
+		if(Token.checkTokenDb(new Integer(id), token)){
+			RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
+			//Llamamos a la función que conecta con la base de datos remota y obtiene la clave pública.
+			result = rdbm.getPublicKey(id);
+		}else{
+			System.out.println("El token no coincide en getPublicKey");
+		}
+		
+		return result;
+		
 	}
 
 	public String getPrivateKey(String id) {
@@ -73,7 +83,7 @@ public class AuthorityImpl implements Authority{
 		return false;
 	}
 
-	public byte[] encrypt(String idVote, String textToEncypt) {
+	public byte[] encrypt(String idVote, String textToEncypt, Integer token) {
 		byte[] result;
 		CryptoEngine ce = new CryptoEngine(idVote);
 		WeierStrassCurve curve = ce.curve;
@@ -88,7 +98,7 @@ public class AuthorityImpl implements Authority{
 		
 		//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
 		//en la bd se guarda en base64
-		publicKeyBD = getPublicKey(idVote);
+		publicKeyBD = getPublicKey(idVote, token);
 		byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
 		publicKeyBD = new String(keyDecoded);
 				
@@ -123,7 +133,7 @@ public class AuthorityImpl implements Authority{
 		return result;
 	}
 	
-	public String decrypt(String idVote, byte[] cipherText) throws BadPaddingException, UnsupportedEncodingException {
+	public String decrypt(String idVote, byte[] cipherText, Integer token) throws BadPaddingException, UnsupportedEncodingException {
 		String result;
 		CryptoEngine ce;
 		String cipherTextString;
@@ -135,7 +145,7 @@ public class AuthorityImpl implements Authority{
 		
 		secretKey = getPrivateKey(idVote);
 		
-		publicKey = getPublicKey(idVote);
+		publicKey = getPublicKey(idVote, token);
 		byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
 		publicKey = new String(keyDecoded2);
 		
@@ -230,12 +240,12 @@ public class AuthorityImpl implements Authority{
 		
 	}
 	
-	private String formatToDecode(String cipherText, String idVote){
+	private String formatToDecode(String cipherText, String idVote, Integer token){
 		String result;
 		result = "";
 		String publicKeys;
 				
-		publicKeys = getPublicKey(idVote);
+		publicKeys = getPublicKey(idVote, token);
 		
 		byte[] keyDecoded = Base64.getDecoder().decode(publicKeys.getBytes());
 		String publicKeyBD = new String(keyDecoded);
