@@ -16,7 +16,7 @@ public interface Authority {
 		String getPrivateKey(String id, Integer token);
 		
 		//Recibe un voto cifrado y un id de la votación, y comprueba si ese voto ha sido alterado.
-		boolean checkVote(byte[] votoCifrado, String id);
+		boolean checkVote(byte[] votoCifrado, String id, Integer token);
 		
 		//Encripta el texto con la clave pública de la votación cuya id se pasa como parámetro.
 		byte[] encrypt(String idVote,String textToEncypt, Integer token);

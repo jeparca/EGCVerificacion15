@@ -24,7 +24,7 @@ public class AuthorityImpl implements Authority{
 		boolean res;
 		BigInteger secretKey;
 		String publicKey;
-		String encodedSecretKey, encodedPublicKey;
+		String encodedPublicKey;
 		res = false;
 		
 		if(Token.checkToken(new Integer(id), token)){
@@ -89,9 +89,26 @@ public class AuthorityImpl implements Authority{
 		return result;
 	}
 
-	public boolean checkVote(byte[] votoCifrado, String id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean checkVote(byte[] votoCifrado, String id, Integer token) {
+		String vote, text, sha11;
+		boolean res = false;
+		
+		try{
+		
+			vote = decrypt(id, votoCifrado, token);
+			
+			text = new String(votoCifrado, "UTF-8");			
+			sha11 = text.substring(0, text.indexOf("?"));
+			
+			if(sha11.equals(stringToSHA1(vote))){
+				res = true;
+			}
+		
+		}catch(Exception e){
+			
+		}
+		
+		return res;
 	}
 
 	public byte[] encrypt(String idVote, String textToEncypt, Integer token) {
@@ -99,6 +116,7 @@ public class AuthorityImpl implements Authority{
 		CryptoEngine ce = new CryptoEngine(idVote);
 		WeierStrassCurve curve = ce.curve;
 		String publicKeyBD = "";
+		String text = "";
 		PointGMP publicKey;
 		String encryptText = "";
 		BigInteger x;
@@ -138,8 +156,10 @@ public class AuthorityImpl implements Authority{
 			//quito los espacios delanteros y traseros
 			encryptText = encryptText.trim();
 			
+			text = stringToSHA1(textToEncypt)+ "?" + encryptText;
+			
 			//convierto a byte[]
-			result = encryptText.getBytes();
+			result = text.getBytes();
 
 		}else{
 			System.out.println("El token no coincide en encriptar");
@@ -155,6 +175,7 @@ public class AuthorityImpl implements Authority{
 		String decoded;
 		String secretKey;
 		String publicKey;
+		String text;
 		
 		if(Token.checkTokenDb(new Integer(idVote), token)){
 			ce = new CryptoEngine(idVote);
@@ -171,7 +192,12 @@ public class AuthorityImpl implements Authority{
 					new BigInteger(publicKey.substring(longKey+4, publicKey.length())), ce.curve), 
 					new BigInteger(secretKey));
 
-			cipherTextString = new String(cipherText, "UTF-8");
+			text = new String(cipherText, "UTF-8");
+			
+			cipherTextString = text.substring(text.indexOf("?")+1, text.length());
+			
+			System.out.println(cipherTextString);
+			
 			result = "";
 			
 			for (String s: cutCifVote(cipherTextString)){
