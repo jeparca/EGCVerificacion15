@@ -75,7 +75,7 @@ public class Token{
 	 * @param token. Corresponde al token de acceso al subsistema.
 	 * @return result. Booleano que indica si el token introducido es correcto.
 	 */
-	public static boolean checkToken(Integer votationId, Integer token) {
+	public static boolean checkTokenDb(Integer votationId, Integer token) {
 		boolean result = false;
 		
 		if(calculateToken(votationId).equals(token)){
@@ -86,5 +86,22 @@ public class Token{
 		return result;
 	}
 	
+	/**
+	 * Esta función comprueba que el token introducido de acceso al subsistema
+	 * corresponde con el token que debería generarse con el método de creación
+	 * de token. Sirve para cuando se generan las claves y aún no se tiene el token.
+	 * @param votationId. Corresponde al id de la votación.
+	 * @param token. Corresponde al token de acceso al subsistema.
+	 * @return result. Booleano que indica si el token introducido es correcto.
+	 */
+	public static boolean checkToken(Integer votationId, Integer token) {
+		boolean result = false;
+		
+		if(calculateToken(votationId).equals(token)){
+			result = true;
+		}
+		
+		return result;
+	}
 	
 }
