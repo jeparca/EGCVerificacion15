@@ -32,17 +32,18 @@ public class Token{
 		String binaryInteger = Integer.toBinaryString(votationId);
 		char[] numberByNumber = binaryInteger.toCharArray();
 		
-		
-		for(int i=numberByNumber.length-1; 0 < i; i--){
-			Integer digit = new Integer(numberByNumber[i]);
-			for (int j=tokenAuxList.length-1; 0 < j; j--){
-				if(digit > 0){
-					token += digit*tokenAuxList[j];
-				}
+		int j = 0;
+		for(int i=numberByNumber.length-1; 0 <= i; i--){
+			String binDigit = Character.toString(numberByNumber[i]);
+			Integer digit = new Integer(binDigit);
+			if(digit > 0){
+				token += digit*tokenAuxList[tokenAuxList.length-1-j];
+				
 			}
+			j++;
 		}
 		
-		return token*17*31;
+		return token*17;
 		
 	}
 
@@ -51,7 +52,7 @@ public class Token{
 	 * @param votationId. Corresponde al id de la votación.
 	 */
 	private static void checkId(Integer votationId) {
-		assert votationId < 999999998;
+		assert votationId <= 999999998;
 		
 	}
 
