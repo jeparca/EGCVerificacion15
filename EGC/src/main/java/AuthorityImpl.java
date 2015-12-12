@@ -196,8 +196,6 @@ public class AuthorityImpl implements Authority{
 			
 			cipherTextString = text.substring(text.indexOf("?")+1, text.length());
 			
-			System.out.println(cipherTextString);
-			
 			result = "";
 			
 			for (String s: cutCifVote(cipherTextString)){

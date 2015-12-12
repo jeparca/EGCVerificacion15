@@ -80,7 +80,7 @@ public class CryptoEngine {
 		PointGMP tmp = publicKey.mult(k);
 		BigInteger C2 = m.add(tmp.getX());
 
-		System.out.println("Message a retrouver " + m + " " + new String(m.toByteArray()) + "\n");
+		//System.out.println("Message a retrouver " + m + " " + new String(m.toByteArray()) + "\n");
 
 		return formatEncodedString(C1, C2);
 	}
@@ -93,7 +93,7 @@ public class CryptoEngine {
 		BigInteger decoded = C2.subtract(temp.getX());
 		decoded = decoded.mod(curve.getP());
 
-		System.out.println("Resultat El gamal " + decoded + " " + new String(decoded.toByteArray()) + "\n");
+		//System.out.println("Resultat El gamal " + decoded + " " + new String(decoded.toByteArray()) + "\n");
 
 		return new String(decoded.toByteArray());
 	}
@@ -106,7 +106,7 @@ public class CryptoEngine {
 		BigInteger decoded = C2.subtract(temp.getX());
 		decoded = decoded.mod(curve.getP());
 
-		System.out.println("Resultat El gamal " + decoded + " " + new String(decoded.toByteArray()) + "\n");
+		//System.out.println("Resultat El gamal " + decoded + " " + new String(decoded.toByteArray()) + "\n");
 
 		return new String(decoded.toByteArray());
 	}
