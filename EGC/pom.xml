@@ -31,9 +31,7 @@
 			<!-- Java compiler -->
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -41,16 +39,11 @@
 					<compilerArguments>
 						<Xlint />
 					</compilerArguments>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-				<finalName>Verificacion</finalName>
-				<descriptorRefs>
-					<descriptorRef>jar-with-dependencies</descriptorRef>
-				</descriptorRefs>
-				<appendAssemblyId>false</appendAssemblyId>
+					<finalName>Verificacion</finalName>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
 					<execution>
@@ -108,13 +101,14 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<scope>compile</scope>
 			<version>5.1.37</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
+			<scope>compile</scope>
 			<version>1.10</version>
 		</dependency>
 	</dependencies>
