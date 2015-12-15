@@ -22,6 +22,7 @@ public class RemoteDataBaseManager {
 	    Connection conn = null;
 	    
 	    try{
+	    	Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    	conn = DriverManager.getConnection(DB_URL, USER, PASS);
 	    }catch (Exception e){
 	    	e.printStackTrace();
