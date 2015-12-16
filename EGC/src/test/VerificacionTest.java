@@ -141,7 +141,30 @@ public class VerificacionTest {
 		Assert.assertTrue(encrypText.equals(desencriptado));
 	}
 	
-	
+	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	public void encryptDecryptTest3() throws BadPaddingException, UnsupportedEncodingException{
+		String votationId;
+		String encrypText;
+		Integer token2;
+		byte[] encriptado;
+		
+		votationId = (new BigInteger(31, new Random())).toString();
+		token2 = calculateToken(new Integer(votationId));		
+		
+		auth.postKey(votationId, token2);
+		
+		encrypText = "";
+		
+		encriptado = auth.encrypt(votationId, encrypText, token2);
+		
+		//---------------------------------
+		
+		String desencriptado;
+		
+		desencriptado = auth.decrypt(votationId, encriptado, token2);
+		
+		Assert.assertTrue(encrypText.equals(desencriptado));
+	}
 	
 		
 
