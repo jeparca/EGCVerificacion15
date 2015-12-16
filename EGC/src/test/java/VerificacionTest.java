@@ -64,7 +64,7 @@ public class VerificacionTest {
 		Integer token;
 		boolean res;
 		
-		votationId = (new BigInteger(31, new Random())).toString();
+		votationId = (new BigInteger(25, new Random())).toString();
 		
 		token = calculateToken(new Integer(votationId));
 		
@@ -81,7 +81,7 @@ public class VerificacionTest {
 		Integer token;
 		boolean res;
 		
-		votationId = (new BigInteger(31, new Random())).toString();
+		votationId = (new BigInteger(25, new Random())).toString();
 		
 		token = 123456789;
 		
@@ -96,7 +96,7 @@ public class VerificacionTest {
 		Integer token2;
 		byte[] encriptado;
 		
-		votationId = (new BigInteger(31, new Random())).toString();
+		votationId = (new BigInteger(25, new Random())).toString();
 		token2 = calculateToken(new Integer(votationId));		
 		
 		auth.postKey(votationId, token2);
@@ -121,7 +121,7 @@ public class VerificacionTest {
 		Integer token2;
 		byte[] encriptado;
 		
-		votationId = (new BigInteger(31, new Random())).toString();
+		votationId = (new BigInteger(25, new Random())).toString();
 		token2 = calculateToken(new Integer(votationId));		
 		
 		auth.postKey(votationId, token2);
@@ -148,7 +148,7 @@ public class VerificacionTest {
 		Integer token2;
 		byte[] encriptado;
 		
-		votationId = (new BigInteger(31, new Random())).toString();
+		votationId = (new BigInteger(25, new Random())).toString();
 		token2 = calculateToken(new Integer(votationId));		
 		
 		auth.postKey(votationId, token2);
