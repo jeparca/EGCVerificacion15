@@ -8,13 +8,16 @@ import java.util.Random;
 import javax.crypto.BadPaddingException;
 
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import main.java.Authority;
 import main.java.AuthorityImpl;
 import main.java.VerificationException;
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VerificacionTest {
 	
 	private static Authority auth = new AuthorityImpl();
@@ -55,8 +58,8 @@ public class VerificacionTest {
 		}
 	
 	
-	@Test 
-	public void testPostKey1(){
+	@Test
+	public void test1PostKey1(){
 		String votationId;
 		Integer token;
 		boolean res;
@@ -73,7 +76,7 @@ public class VerificacionTest {
 	}
 	
 	@Test(expected = VerificationException.class)
-	public void testPostKey2(){
+	public void test2PostKey2(){
 		String votationId;
 		Integer token;
 		boolean res;
@@ -87,7 +90,7 @@ public class VerificacionTest {
 	}
 	
 	@Test
-	public void encryptDecryptTest1() throws BadPaddingException, UnsupportedEncodingException{
+	public void test3EncryptDecryptTest1() throws BadPaddingException, UnsupportedEncodingException{
 		String votationId;
 		String encrypText;
 		Integer token2;
@@ -112,7 +115,7 @@ public class VerificacionTest {
 	}
 	
 	@Test(expected = VerificationException.class)
-	public void encryptDecryptTest2() throws BadPaddingException, UnsupportedEncodingException{
+	public void test4EncryptDecryptTest2() throws BadPaddingException, UnsupportedEncodingException{
 		String votationId;
 		String encrypText;
 		Integer token2;
@@ -139,7 +142,7 @@ public class VerificacionTest {
 	}
 	
 	@Test(expected = ArrayIndexOutOfBoundsException.class)
-	public void encryptDecryptTest3() throws BadPaddingException, UnsupportedEncodingException{
+	public void test5EncryptDecryptTest3() throws BadPaddingException, UnsupportedEncodingException{
 		String votationId;
 		String encrypText;
 		Integer token2;
