@@ -11,6 +11,8 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import exceptions.VerificationException;
+
 public class AuthorityImpl implements Authority{
 	
 	/**
@@ -52,7 +54,8 @@ public class AuthorityImpl implements Authority{
 				e.printStackTrace();
 			}
 		}else{
-			System.out.println("El token no coincide");
+//			System.out.println("El token no coincide");
+			throw new VerificationException("El token no coincide");
 		}
 		
 		return res;
@@ -67,7 +70,8 @@ public class AuthorityImpl implements Authority{
 			//Llamamos a la función que conecta con la base de datos remota y obtiene la clave pública.
 			result = rdbm.getPublicKey(id);
 		}else{
-			System.out.println("El token no coincide en getPublicKey");
+//			System.out.println("El token no coincide en getPublicKey");
+			throw new VerificationException("El token no coincide en getPublicKey");
 		}
 		
 		return result;
@@ -83,7 +87,8 @@ public class AuthorityImpl implements Authority{
 			//Llamamos a la función que conecta con la base de datos remota y obtiene la clave privada.
 			result = rdbm.getSecretKey(id);
 		}else{
-			System.out.println("El token no coincide en getPrivateKey");
+//			System.out.println("El token no coincide en getPrivateKey");
+			throw new VerificationException("El token no coincide en getPrivateKey");
 		}		
 		
 		return result;
@@ -162,7 +167,8 @@ public class AuthorityImpl implements Authority{
 			result = text.getBytes();
 
 		}else{
-			System.out.println("El token no coincide en encriptar");
+			//System.out.println("El token no coincide en encriptar");
+			throw new VerificationException("El token no coincide en encriptar");
 		}
 				
 		return result;
@@ -209,7 +215,8 @@ public class AuthorityImpl implements Authority{
 			}
 
 		}else{
-			System.out.println("El token no coincide en desencriptar");
+//			System.out.println("El token no coincide en desencriptar");
+			throw new VerificationException("El token no coincide en desencriptar");
 		}
 				
 		return result;
