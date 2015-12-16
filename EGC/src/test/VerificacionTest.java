@@ -72,7 +72,25 @@ public class VerificacionTest {
 		
 	}
 	
+	@Test(expected = VerificationException.class)
+	public void testPostKey2(){
+		String votationId;
+		Integer token;
+		boolean res;
 		
+		votationId = (new BigInteger(31, new Random())).toString();
+		
+		token = 123456789;
+		
+		res = auth.postKey(votationId, token);
+		
+		
+		Assert.assertTrue(res == true);		
+		
+	}
+	
+	
+	
 		
 
 }
