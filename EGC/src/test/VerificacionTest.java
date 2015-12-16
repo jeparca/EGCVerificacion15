@@ -10,9 +10,9 @@ import javax.crypto.BadPaddingException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import main.exceptions.VerificationException;
 import main.java.Authority;
 import main.java.AuthorityImpl;
+import main.java.VerificationException;
 
 
 public class VerificacionTest {

@@ -1,4 +1,4 @@
-package main.exceptions;
+package main.java;
 
 public class VerificationException extends RuntimeException {
 	

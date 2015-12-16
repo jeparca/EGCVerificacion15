@@ -11,8 +11,6 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import main.exceptions.VerificationException;
-
 public class AuthorityImpl implements Authority{
 	
 	/**
