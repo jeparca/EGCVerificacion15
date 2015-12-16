@@ -10,7 +10,7 @@ import javax.crypto.BadPaddingException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import exceptions.VerificationException;
+import main.exceptions.VerificationException;
 import main.java.Authority;
 import main.java.AuthorityImpl;
 
