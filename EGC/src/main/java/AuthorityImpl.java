@@ -3,12 +3,12 @@ package main.java;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import exceptions.VerificationException;
@@ -40,7 +40,8 @@ public class AuthorityImpl implements Authority{
 				secretKey = cryptoEngine.getKeyPair().getSecretKey();
 				publicKey = cryptoEngine.getKeyPair().getPublicKey().getX()+"++++"+cryptoEngine.getKeyPair().getPublicKey().getY();
 				
-				encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
+				//encodedPublicKey = DatatypeConverter.printBase64Binary(publicKey.getBytes());
+				encodedPublicKey = new String(Base64.encodeBase64(publicKey.getBytes()));
 				
 				RemoteDataBaseManager rdbm=new RemoteDataBaseManager();
 				 //Llamamos a la función que se encarga de guardar el par de claves asociadas
@@ -133,7 +134,8 @@ public class AuthorityImpl implements Authority{
 			//obtengo la clave publica con getKey y separa esto en x e y (que es la mitad y hacer un new PointGMP) acordarse de que  
 			//en la bd se guarda en base64
 			publicKeyBD = getPublicKey(idVote, token);
-			byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
+			//byte[] keyDecoded = Base64.getDecoder().decode(publicKeyBD.getBytes());
+			byte[] keyDecoded = Base64.decodeBase64(publicKeyBD.getBytes());
 			publicKeyBD = new String(keyDecoded);
 					
 			x = new BigInteger(publicKeyBD.substring(0, publicKeyBD.indexOf("+")).trim());
@@ -189,7 +191,8 @@ public class AuthorityImpl implements Authority{
 			secretKey = getPrivateKey(idVote, token);
 			
 			publicKey = getPublicKey(idVote, token);
-			byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
+			//byte[] keyDecoded2 = Base64.getDecoder().decode(publicKey.getBytes());
+			byte[] keyDecoded2 = Base64.decodeBase64(publicKey.getBytes());
 			publicKey = new String(keyDecoded2);
 			
 			int longKey = (publicKey.length()-4)/2;
