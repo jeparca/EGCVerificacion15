@@ -6,22 +6,22 @@ import javax.crypto.BadPaddingException;
 
 public interface Authority {
 
-	//Recibe la id de la votaci髇, crea las claves y las guarda en BD.
+	//Recibe la id de la votaci贸n, crea las claves y las guarda en BD.
 		boolean postKey(String id, Integer token);
 		
-		//Recibe la id de la votaci髇 y devuelve su clave p鷅lica para poder cifrar.
+		//Recibe la id de la votaci贸n y devuelve su clave p煤blica para poder cifrar.
 		String getPublicKey(String id, Integer token);
 		
-		//Recibe la id de la votaci髇 y devuelve su clave privada para poder descifrar.
+		//Recibe la id de la votaci贸n y devuelve su clave privada para poder descifrar.
 		String getPrivateKey(String id, Integer token);
 		
-		//Recibe un voto cifrado y un id de la votaci髇, y comprueba si ese voto ha sido alterado.
+		//Recibe un voto cifrado y un id de la votaci贸n, y comprueba si ese voto ha sido alterado.
 		boolean checkVote(byte[] votoCifrado, String id, Integer token);
 		
-		//Encripta el texto con la clave p鷅lica de la votaci髇 cuya id se pasa como par醡etro.
+		//Encripta el texto con la clave p煤blica de la votaci贸n cuya id se pasa como par谩metro.
 		byte[] encrypt(String idVote,String textToEncypt, Integer token);
 		
-		//Desencripta el texto con la clave privada de la votaci髇 cuya id se pasa como par醡etro.	
+		//Desencripta el texto con la clave privada de la votaci贸n cuya id se pasa como par谩metro.	
 		String decrypt(String idVote,byte[] cipherText, Integer token) throws BadPaddingException, UnsupportedEncodingException;
 		
 }

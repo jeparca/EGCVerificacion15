@@ -10,11 +10,11 @@
 
 	<groupId>EGC</groupId>
 	<artifactId>Verificacion</artifactId>
-	<version>2.1.0</version>
+	<version>2.1.1</version>
 	<packaging>jar</packaging>
 	
 	<properties>
-	    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+	    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	</properties>
 
 	<!-- Indexing information -->

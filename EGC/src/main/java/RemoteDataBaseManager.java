@@ -11,8 +11,8 @@ public class RemoteDataBaseManager {
 	
 	
 	/**
-	 * Esta función provee el conector con la base de datos
-	 * @return conn. Conector de conexión con la base de datos.
+	 * Esta funciÃ³n provee el conector con la base de datos
+	 * @return conn. Conector de conexiÃ³n con la base de datos.
 	 */
 	private static Connection getDatabaseConnection(){
 		String USER = "jeparcac_egc";
@@ -33,12 +33,12 @@ public class RemoteDataBaseManager {
 	}
 	
 	/**
-	 * Función que almacena en la base de datos remota un par de claves de cifrado RSA
-	 * asociadas a una votación
-	 * @param id La ide de la votación.
-	 * @param publicKey La clave pública de cifrado asociada a la votación
-	 * @param privateKey La clave privada de cifrado asociada a la votación
-	 * @return una variable booleana que será cierta si el guardado se realiza con éxito.
+	 * FunciÃ³n que almacena en la base de datos remota un par de claves de cifrado ElGamal
+	 * asociadas a una votaciÃ³n
+	 * @param id La ide de la votaciÃ³n.
+	 * @param publicKey La clave pÃºblica de cifrado asociada a la votaciÃ³n
+	 * @param privateKey La clave privada de cifrado asociada a la votaciÃ³n
+	 * @return una variable booleana que serÃ¡ cierta si el guardado se realiza con Ã©xito.
 	 */
 	public boolean postKeys(String id, String publicKey,String privateKey ){
 		boolean success = false;
@@ -88,9 +88,9 @@ public class RemoteDataBaseManager {
 	}
 	
 	/**
-	 * Función usada para obtener la clave de cifrado AES asociada a una votación.
-	 * @param id La id de la votación cuya clave de cifrado AES queremos conocer
-	 * @return La clave de cifrado AES asociada a una votación
+	 * FunciÃ³n usada para obtener la clave de cifrado ElGamal asociada a una votaciÃ³n.
+	 * @param id La id de la votaciÃ³n cuya clave de cifrado ElGamal queremos conocer
+	 * @return La clave de cifrado ElGamal asociada a una votaciÃ³n
 	 */
 	public String getSecretKey(String id){
 		String res = "";
@@ -121,9 +121,9 @@ public class RemoteDataBaseManager {
 	}
 	
 	/**
-	 * Función usada para obtener la clave pública RSA asociada a una votación.
-	 * @param id La id de la votación cuya clave pública RSA queremos conocer
-	 * @return La clave pública asociada a una votación
+	 * FunciÃ³n usada para obtener la clave pÃºblica ElGamal asociada a una votaciÃ³n.
+	 * @param id La id de la votaciÃ³n cuya clave pÃºblica ElGamal queremos conocer
+	 * @return La clave pÃºblica asociada a una votaciÃ³n
 	 */
 	public String getPublicKey(String id){
 		String res = "";
@@ -154,11 +154,11 @@ public class RemoteDataBaseManager {
 	}
 
 	/**
-	 * Esta función envía a la base de datos el token generado para un id 
-	 * de votación correspondiente.
-	 * @param votationId. Corresponde al id de la votación.
+	 * Esta funciÃ³n envÃ­a a la base de datos el token generado para un id 
+	 * de votaciÃ³n correspondiente.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
 	 * @param token. Corresponde al token que se va a guardar en la base de datos
-	 * @return success. Booleano que indica si se ha ejecutado la operación SQL con éxito.
+	 * @return success. Booleano que indica si se ha ejecutado la operaciÃ³n SQL con Ã©xito.
 	 */
 	public static boolean sendGeneratedToken(Integer votationId, Integer token){
 		boolean success = false;
@@ -207,10 +207,10 @@ public class RemoteDataBaseManager {
 	}
 
 	/**
-	 * Esta función extrae de la base de datos un token que se ha guardado
-	 * anteriormente, dado un id de votación
-	 * @param votationId. Corresponde al id de la votación.
-	 * @return result. Número entero que corresponde con el token extraido.
+	 * Esta funciÃ³n extrae de la base de datos un token que se ha guardado
+	 * anteriormente, dado un id de votaciÃ³n
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
+	 * @return result. NÃºmero entero que corresponde con el token extraido.
 	 */
 	public static Integer getAccessToken(Integer votationId){
 		Integer result = -1;

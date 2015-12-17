@@ -11,17 +11,17 @@ public class Token{
 	
 	
 	/**
-	 * Esta función hace el cálculo del Token necesario para el acceso al subsistema
-	 * de verificación. Este token es el que se almacenará en la base de datos
+	 * Esta funciÃ³n hace el cÃ¡lculo del Token necesario para el acceso al subsistema
+	 * de verificaciÃ³n. Este token es el que se almacenarÃ¡ en la base de datos
 	 * posteriormente. Este token se calcula de la siguiente forma:
-	 * 1 - El id de la votación pasa a binario.
-	 * 2 - Recorremos el número binario y multiplicamos del final hacia el 
-	 *     principio con el índice correspondiente de la lista de números
-	 *     estática.
-	 * 3 - Vamos sumando el resultado de la multiplicación a lo que ya tuvieramos.
-	 * 4 - Finalmente, multiplicamos por dos primos para aumentar el tamaño.
-	 * @param votationId. Corresponde al id de la votación.
-	 * @return token. Número entero que corresponde con el token generado.
+	 * 1 - El id de la votaciÃ³n pasa a binario.
+	 * 2 - Recorremos el nÃºmero binario y multiplicamos del final hacia el 
+	 *     principio con el Ã­ndice correspondiente de la lista de nÃºmeros
+	 *     estÃ¡tica.
+	 * 3 - Vamos sumando el resultado de la multiplicaciÃ³n a lo que ya tuvieramos.
+	 * 4 - Finalmente, multiplicamos por dos primos para aumentar el tamaÃ±o.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
+	 * @return token. NÃºmero entero que corresponde con el token generado.
 	 */
 	private static Integer calculateToken(Integer votationId){
 		
@@ -48,8 +48,8 @@ public class Token{
 	}
 
 	/**
-	 * Comprueba que el id de la votación es menor a un número de 9 cifras.
-	 * @param votationId. Corresponde al id de la votación.
+	 * Comprueba que el id de la votaciÃ³n es menor a un nÃºmero de 9 cifras.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
 	 */
 	private static void checkId(Integer votationId) {
 		assert votationId <= 999999998;
@@ -57,9 +57,9 @@ public class Token{
 	}
 
 	/**
-	 * Esta función crea el token con la función definida anteriormente y la 
-	 * envía al método de escritura del token en la base de datos.
-	 * @param votationId. Corresponde al id de la votación.
+	 * Esta funciÃ³n crea el token con la funciÃ³n definida anteriormente y la 
+	 * envÃ­a al mÃ©todo de escritura del token en la base de datos.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
 	 * @return Resultado booleano correspondiente a la escritura en la base de datos.
 	 */
 	public static boolean createToken(Integer votationId) {
@@ -68,11 +68,11 @@ public class Token{
 	}
 
 	/**
-	 * Esta función comprueba que el token introducido de acceso al subsistema
-	 * corresponde con el token que debería generarse con el método de creación
-	 * de token. Además, comprueba que el token introducido corresponde con el
-	 * que está guardado en la base de datos para el mismo id de votación.
-	 * @param votationId. Corresponde al id de la votación.
+	 * Esta funciÃ³n comprueba que el token introducido de acceso al subsistema
+	 * corresponde con el token que deberÃ­a generarse con el mÃ©todo de creaciÃ³n
+	 * de token. AdemÃ¡s, comprueba que el token introducido corresponde con el
+	 * que estÃ¡ guardado en la base de datos para el mismo id de votaciÃ³n.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
 	 * @param token. Corresponde al token de acceso al subsistema.
 	 * @return result. Booleano que indica si el token introducido es correcto.
 	 */
@@ -88,10 +88,10 @@ public class Token{
 	}
 	
 	/**
-	 * Esta función comprueba que el token introducido de acceso al subsistema
-	 * corresponde con el token que debería generarse con el método de creación
-	 * de token. Sirve para cuando se generan las claves y aún no se tiene el token.
-	 * @param votationId. Corresponde al id de la votación.
+	 * Esta funciÃ³n comprueba que el token introducido de acceso al subsistema
+	 * corresponde con el token que deberÃ­a generarse con el mÃ©todo de creaciÃ³n
+	 * de token. Sirve para cuando se generan las claves y aÃºn no se tiene el token.
+	 * @param votationId. Corresponde al id de la votaciÃ³n.
 	 * @param token. Corresponde al token de acceso al subsistema.
 	 * @return result. Booleano que indica si el token introducido es correcto.
 	 */
