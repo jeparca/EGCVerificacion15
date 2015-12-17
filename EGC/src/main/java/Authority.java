@@ -24,10 +24,4 @@ public interface Authority {
 		//Desencripta el texto con la clave privada de la votación cuya id se pasa como parámetro.	
 		String decrypt(String idVote,byte[] cipherText, Integer token) throws BadPaddingException, UnsupportedEncodingException;
 		
-		//El voto recibido lo corta en bloques de 31 caracteres
-		String[] cutVote(String votoEnClaro);
-
-		//El voto cifrado recibido lo corta en bloques para su posterior recorrido en el método de descifrar
-		String[] cutCifVote(String votoEnClaro);
-	
 }
