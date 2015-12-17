@@ -227,8 +227,13 @@ public class AuthorityImpl implements Authority{
 		return result;
 	}
 
-	@Override
-	public String[] cutVote(String votoEnClaro) {
+	/**
+	 * Esta función corta un voto en claro en partes de longitud 31 para que el método de cifrar
+	 * funcione correctamente.
+	 * @param votoEnClaro. String que representa el voto en claro para cortar.
+	 * @return result. String[] que indica los distintos trozos en los que ha sido cortado el voto enclaro.
+	 */
+	private String[] cutVote(String votoEnClaro) {
 		
 		//Intervalo de corte del string 
 		int intervalo;		
@@ -250,8 +255,14 @@ public class AuthorityImpl implements Authority{
 	    return result;
 	}
 	
-	@Override
-	public String[] cutCifVote(String votoCifrado) {
+	/**
+	 * Esta función corta un voto cifrado en partes situadas entre el símbolo "|", de esa forma en el
+	 * método decrypt descifrará las distintas partes cifradas que han resultado de cifrar los trozos
+	 * que devuelve el método cutVote.
+	 * @param votoCifrado. String que representa el voto cifrado para cortar.
+	 * @return result. String[] que indica los distintos trozos en los que ha sido cortado el voto cifrado.
+	 */
+	private String[] cutCifVote(String votoCifrado) {
 		
 		List<String>  res = new ArrayList<String>();
 		List<Integer> indices = new ArrayList<Integer>();
