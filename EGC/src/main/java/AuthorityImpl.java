@@ -113,7 +113,7 @@ public class AuthorityImpl implements Authority{
 			}
 		
 		}catch(Exception e){
-			
+			throw new VerificationException("El voto ha sido modificado durante la votación");
 		}
 		
 		return res;
