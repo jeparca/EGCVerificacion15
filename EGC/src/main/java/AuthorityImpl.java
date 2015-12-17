@@ -15,8 +15,13 @@ public class AuthorityImpl implements Authority{
 	/**
 	 * Esta función obtiene las claves pública y privada de la votación cuyo id es el pasado 
 	 * como parámetro. Resaltar que hacemos uso del proyecto Elliptic_SDK, que  es una librería
-	 * criptográfica elíptica bajo la licensia GPL v3. Más información en la clase CryptoEngine.java
+	 * criptográfica elíptica bajo la licensia GPL v3. Más información en la clase CryptoEngine.java.
+	 * Se crean las claves mediante el método generateKeyPair() de la clase CryptoEngine.
+	 * La clave pública es de la forma xxxxxxx++++yyyyyyy, siendo el + un separador.
+	 * Se cifra en base64 sólo la clave pública y se guarda la clave pública y privada en la base de
+	 * datos. Finalmente se comprueba que se haya guardado correcctamente.
 	 * @param id. Corresponde al id de la votación
+	 * @param token. Corresponde al token que se comprobará si es el adecuado para seguir la operación.
 	 * @return res. Boolean que indica si la operación ha tenido éxito.
 	 */
 	public boolean postKey(String id, Integer token) {
