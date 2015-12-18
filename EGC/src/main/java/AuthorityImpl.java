@@ -209,7 +209,7 @@ public class AuthorityImpl implements Authority{
 				s2 = publicKey + "////" + s;
 				
 				decoded = ce.decodeString(s2, secretKey);
-				result = result + decoded;
+				result = result + decoded.substring(1, decoded.length());
 				
 			}
 
@@ -233,17 +233,17 @@ public class AuthorityImpl implements Authority{
 		int arrayLength;
 	    String[] result;
 	    
-	    intervalo = 31;
+	    intervalo = 15;
 	    arrayLength = (int) Math.ceil(((votoEnClaro.length() / (double)intervalo)));
 	    result = new String[arrayLength];
 
 	    int j = 0;
 	    int lastIndex = result.length - 1;
 	    for (int i = 0; i < lastIndex; i++) {
-	        result[i] = votoEnClaro.substring(j, j + intervalo);
+	        result[i] = "t"+votoEnClaro.substring(j, j + intervalo);
 	        j += intervalo;
 	    } //Añado el último bloque
-	    result[lastIndex] = votoEnClaro.substring(j);
+	    result[lastIndex] = "t"+votoEnClaro.substring(j);
 
 	    return result;
 	}
