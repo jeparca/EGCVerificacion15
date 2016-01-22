@@ -1,0 +1,9 @@
+<settings>
+  <servers>
+    <server>
+      <id>archiva.egcVerificacion</id>
+      <username>egcVerificationUser</username>
+      <password>EGC123456</password>
+    </server>
+  </servers>
+</settings>
